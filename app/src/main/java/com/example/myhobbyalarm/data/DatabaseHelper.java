@@ -34,7 +34,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
      * Add for branch DBSnoozeColorAdd 2019,12,10 by YS
      * */
     public static final String COL_IS_SNOOZE = "is_snooze";
-    public static final String COL_COLOR = "color_blue";
+    public static final String COL_COLOR = "color_title";
 
     private static DatabaseHelper sInstance = null;
 
