@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/listTitlePrimary</item>
+        <item name="colorPrimaryDark">@color/listTitlePrimary</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
+    <style name="AlertLandingPageTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/listTitlePrimary</item>
+        <item name="colorPrimaryDark">@color/listTitlePrimary</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
+    <style name="DeleteAlarmDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
+</resources>

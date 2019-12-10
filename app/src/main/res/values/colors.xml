@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+
+    <color name="listTitlePrimary">#3F51B5</color>
+    <color name="secondary_text">#727272</color>
+    <color name="blue">@android:color/holo_blue_light</color>
+
+    <color name="divider">#BDBDBD</color>
+
+</resources>

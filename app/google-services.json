@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "860654402552",
+    "firebase_url": "https://myhobbyalarm.firebaseio.com",
+    "project_id": "myhobbyalarm",
+    "storage_bucket": "myhobbyalarm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860654402552:android:9bfc137943bf981da1b40d",
+        "android_client_info": {
+          "package_name": "com.example.myhobbyalarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860654402552-0kqcp8csd510oc080egfdor83vpu4g4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myhobbyalarm",
+            "certificate_hash": "52bc1c1975ee56382eebf5bd7ca0cde1aa0303cf"
+          }
+        },
+        {
+          "client_id": "860654402552-prl9ghug7hjgur8j4urri4bvmkjlpsph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANFr9h6pss8viMV5MRr_kUMszUZtInhpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860654402552-prl9ghug7hjgur8j4urri4bvmkjlpsph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
