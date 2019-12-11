@@ -17,13 +17,7 @@
     <string name="night_mode_off_summary">Night mode is off</string>
     <string name="description">Description</string>
 
-    <string-array name="snooze_options">
-        <item>10 Minutes</item>
-        <item>30 Minutes</item>
-        <item>1 Hour</item>
-    </string-array>
 
-    <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
     <string name="todo_error">Please enter a Todo</string>
 
@@ -157,6 +151,7 @@
     <string name="time">Time</string>
     <string name="label">Label</string>
     <string name="days">Days</string>
+    <string name="snooze">Snooze</string>
     <string name="edit_alarm">Edit Alarm</string>
     <string name="add_alarm">Add Alarm</string>
     <string name="add_label_hint">Add a label!</string>
@@ -168,6 +163,13 @@
     <string name="delete_dialog_content">Are you sure you would like to delete this alarm?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string-array name="snooze_options">
+        <item>10 Minutes</item>
+        <item>30 Minutes</item>
+        <item>1 Hour</item>
+    </string-array>
+
 
     <!-- Edit Alarm Menu -->
     <string name="action_save">Save</string>
@@ -188,4 +190,5 @@
 
     <!-- Notification -->
     <string name="channel_name">Simple Alarms</string>
+    <string name="titleColor">Color</string>
 </resources>

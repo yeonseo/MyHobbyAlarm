@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#283799</color>
+    <color name="colorPrimaryDark">#1D2A7C</color>
+    <color name="colorAccent">#B83B65</color>
 
-
-
-
-    <color name="listTitlePrimary">#3F51B5</color>
     <color name="secondary_text">#727272</color>
-    <color name="blue">@android:color/holo_blue_light</color>
+
+    <color name="softRed">#e25845</color>
+    <color name="lightOrange">#FF8357</color>
+    <color name="pink">#FFA8BE</color>
+    <color name="softOrange">#Fac172</color>
+    <color name="slightlyCyan">#89d5c9</color>
+    <color name="slightlyGreen">#adc865</color>
+    <color name="green">#53BB29</color>
+    <color name="strongCyan">#2fc4b2</color>
+    <color name="blue">#1a79db</color>
+    <color name="moderateBlue">#3F51B5</color>
+    <color name="moderateViolet">#683fb5</color>
+    <color name="black">#202020</color>
 
     <color name="divider">#BDBDBD</color>
-
+    <color name="colorBackground">#00FFFFFF</color>
 </resources>

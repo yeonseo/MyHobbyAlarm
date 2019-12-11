@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:scrollbarStyle="outsideOverlay">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
             android:text="@string/time"
-            tools:text="Time"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="Time" />
 
         <View
             android:layout_width="match_parent"
@@ -43,10 +42,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
             android:text="@string/label"
-            tools:text="Label"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="Label" />
 
         <View
             android:layout_width="match_parent"
@@ -58,20 +57,20 @@
             android:id="@+id/edit_alarm_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/add_label_hint"
             android:inputType="textCapWords"
             android:maxLength="15"
             android:textColor="@color/secondary_text"
-            android:textStyle="italic"
-            android:hint="@string/add_label_hint"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+            android:textStyle="italic" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
             android:text="@string/days"
-            tools:text="Days"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="Days" />
 
         <View
             android:layout_width="match_parent"
@@ -79,125 +78,278 @@
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
             android:background="@drawable/divider" />
 
-        <androidx.gridlayout.widget.GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:columnCount="2">
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/monday"
+                    tools:text="Mon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/tuesday"
+                    tools:text="Tue" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/wednesday"
+                    tools:text="Wed" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/thursday"
+                    tools:text="Thu" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/friday"
+                    tools:text="Fri" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/saturday"
+                    android:textColor="@color/blue"
+                    tools:text="Sat" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sunday"
+                    android:textColor="@color/softRed"
+                    tools:text="Sun" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_mon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_tues"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_wed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_thurs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_fri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_sat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <CheckBox
+                    android:id="@+id/edit_alarm_sun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                android:text="@string/snooze"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/monday"
-                tools:text="Monday"
-                />
+                android:paddingRight="10dp"/>
+        </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/edit_alarm_mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/tuesday"
-                tools:text="Tuesday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_tues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/wednesday"
-                tools:text="Wednesday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_wed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/thursday"
-                tools:text="Thursday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_thurs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/friday"
-                tools:text="Friday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_fri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/saturday"
-                tools:text="Saturday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_sat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_gravity="center_vertical|fill_horizontal"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:text="@string/sunday"
-                tools:text="Sunday"
-                />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_sun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                app:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/list_padding_vertical_small"
+            android:background="@drawable/divider" />
 
 
-        </androidx.gridlayout.widget.GridLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/list_padding_vertical_small"
+            android:text="@string/titleColor"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/list_padding_vertical_small"
+            android:background="@drawable/divider" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/softRed"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/lightOrange"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/softOrange"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/slightlyCyan"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/slightlyGreen"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/green"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/strongCyan"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/blue"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/moderateBlue"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/moderateViolet"
+                    android:background="@color/colorBackground"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_fiber_manual_record_50dp"
+                    android:tint="@color/black"
+                    android:background="@color/colorBackground"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
 
     </LinearLayout>
 
