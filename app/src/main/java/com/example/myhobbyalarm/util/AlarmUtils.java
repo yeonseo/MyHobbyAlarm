@@ -29,11 +29,13 @@ public final class AlarmUtils {
             Manifest.permission.VIBRATE
     };
 
-    private AlarmUtils() { throw new AssertionError(); }
+    private AlarmUtils() {
+        throw new AssertionError();
+    }
 
     public static void checkAlarmPermissions(Activity activity) {
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return;
         }
 
@@ -41,7 +43,7 @@ public final class AlarmUtils {
                 activity, Manifest.permission.VIBRATE
         );
 
-        if(permission != PackageManager.PERMISSION_GRANTED) {
+        if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     activity,
                     PERMISSIONS_ALARM,
@@ -55,11 +57,12 @@ public final class AlarmUtils {
      * Add for branch DBSnoozeColorAdd 2019,12,11 by YS
      * about isSnooze,colorTitle
      * "ADD VALUE"
-     * */
+     */
 
     public static ContentValues toContentValues(Alarm alarm) {
 
-        final ContentValues cv = new ContentValues(10);
+//        final ContentValues cv = new ContentValues(10);
+        final ContentValues cv = new ContentValues(12);
 
         cv.put(DatabaseHelper.COL_TIME, alarm.getTime());
         cv.put(DatabaseHelper.COL_LABEL, alarm.getLabel());
@@ -75,9 +78,9 @@ public final class AlarmUtils {
 
         cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
 
-
-        cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
-        cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
+        //ADD VALUE
+        cv.put(DatabaseHelper.COL_IS_SNOOZE, alarm.isSnooze());
+        cv.put(DatabaseHelper.COL_COLOR, alarm.getColorTitle());
 
         return cv;
 
@@ -91,7 +94,7 @@ public final class AlarmUtils {
 
         final ArrayList<Alarm> alarms = new ArrayList<>(size);
 
-        if (c.moveToFirst()){
+        if (c.moveToFirst()) {
             do {
 
                 final long id = c.getLong(c.getColumnIndex(DatabaseHelper._ID));
@@ -106,7 +109,11 @@ public final class AlarmUtils {
                 final boolean sun = c.getInt(c.getColumnIndex(DatabaseHelper.COL_SUN)) == 1;
                 final boolean isEnabled = c.getInt(c.getColumnIndex(DatabaseHelper.COL_IS_ENABLED)) == 1;
 
-                final Alarm alarm = new Alarm(id, time, label);
+                //ADD VALUE
+                final boolean isSnooze = c.getInt(c.getColumnIndex(DatabaseHelper.COL_IS_SNOOZE)) == 1;
+                final String color = c.getString(c.getColumnIndex(DatabaseHelper.COL_COLOR));
+
+                final Alarm alarm = new Alarm(id, time, label, isSnooze, color);
                 alarm.setDay(Alarm.MON, mon);
                 alarm.setDay(Alarm.TUES, tues);
                 alarm.setDay(Alarm.WED, wed);
@@ -116,6 +123,10 @@ public final class AlarmUtils {
                 alarm.setDay(Alarm.SUN, sun);
 
                 alarm.setIsEnabled(isEnabled);
+
+                //ADD VALUE
+                alarm.setSnooze(isSnooze);
+                alarm.setColorTitle(color);
 
                 alarms.add(alarm);
 
@@ -154,16 +165,16 @@ public final class AlarmUtils {
 
         StringBuilder builder = new StringBuilder("Active Days: ");
 
-        if(alarm.getDay(Alarm.MON)) builder.append("Monday, ");
-        if(alarm.getDay(Alarm.TUES)) builder.append("Tuesday, ");
-        if(alarm.getDay(Alarm.WED)) builder.append("Wednesday, ");
-        if(alarm.getDay(Alarm.THURS)) builder.append("Thursday, ");
-        if(alarm.getDay(Alarm.FRI)) builder.append("Friday, ");
-        if(alarm.getDay(Alarm.SAT)) builder.append("Saturday, ");
-        if(alarm.getDay(Alarm.SUN)) builder.append("Sunday.");
+        if (alarm.getDay(Alarm.MON)) builder.append("Monday, ");
+        if (alarm.getDay(Alarm.TUES)) builder.append("Tuesday, ");
+        if (alarm.getDay(Alarm.WED)) builder.append("Wednesday, ");
+        if (alarm.getDay(Alarm.THURS)) builder.append("Thursday, ");
+        if (alarm.getDay(Alarm.FRI)) builder.append("Friday, ");
+        if (alarm.getDay(Alarm.SAT)) builder.append("Saturday, ");
+        if (alarm.getDay(Alarm.SUN)) builder.append("Sunday.");
 
-        if(builder.substring(builder.length()-2).equals(", ")) {
-            builder.replace(builder.length()-2,builder.length(),".");
+        if (builder.substring(builder.length() - 2).equals(", ")) {
+            builder.replace(builder.length() - 2, builder.length(), ".");
         }
 
         return builder.toString();

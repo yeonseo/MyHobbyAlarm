@@ -71,7 +71,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
                  * Add for branch DBSnoozeColorAdd 2019,12,10 by YS
                  * */
                 COL_IS_SNOOZE + " INTEGER NOT NULL, " +
-                COL_COLOR + " TEXT NOT NULL" +
+                COL_COLOR + " TEXT" +
                 ");";
 
         sqLiteDatabase.execSQL(CREATE_ALARMS_TABLE);

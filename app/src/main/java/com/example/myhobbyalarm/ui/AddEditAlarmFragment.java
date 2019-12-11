@@ -140,6 +140,9 @@ public final class AddEditAlarmFragment extends Fragment {
     }
 
     private void setDayCheckColorTitle(Alarm alarm) {
+        if(alarm.getColorTitle()==null){
+            alarm.setColorTitle("softRed");
+        }
         switch (alarm.getColorTitle()) {
             case "lightOrange":
                 colorTitle[1].setChecked(true);
