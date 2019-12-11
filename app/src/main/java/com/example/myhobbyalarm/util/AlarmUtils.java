@@ -51,6 +51,12 @@ public final class AlarmUtils {
 
     }
 
+    /**
+     * Add for branch DBSnoozeColorAdd 2019,12,11 by YS
+     * about isSnooze,colorTitle
+     * "ADD VALUE"
+     * */
+
     public static ContentValues toContentValues(Alarm alarm) {
 
         final ContentValues cv = new ContentValues(10);
@@ -67,6 +73,10 @@ public final class AlarmUtils {
         cv.put(DatabaseHelper.COL_SAT, days.get(Alarm.SAT) ? 1 : 0);
         cv.put(DatabaseHelper.COL_SUN, days.get(Alarm.SUN) ? 1 : 0);
 
+        cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
+
+
+        cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
         cv.put(DatabaseHelper.COL_IS_ENABLED, alarm.isEnabled());
 
         return cv;

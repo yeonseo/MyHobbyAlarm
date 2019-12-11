@@ -14,50 +14,35 @@
     <!--  6  -->
     <gradient
         android:angle="135"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#C973FF"
-        android:gradientRadius="integer"
         android:startColor="#AEBAF8"
         android:type="linear" />
 
     <!--  7  -->
     <gradient
         android:angle="135"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#F9957F"
-        android:gradientRadius="integer"
         android:startColor="#F2F5D0"
         android:type="linear" />
 
     <!--  17  -->
     <gradient
         android:angle="135"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#0C7BB3"
-        android:gradientRadius="integer"
         android:startColor="#F2BAE8"
         android:type="linear" />
 
     <!--  20  -->
     <gradient
         android:angle="135"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#07A3B2"
-        android:gradientRadius="integer"
         android:startColor="#D9ECC7"
         android:type="linear" />
 
     <!--  22  -->
     <gradient
         android:angle="135"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#CCFBFF"
-        android:gradientRadius="integer"
         android:startColor="#EF96C5"
         android:type="linear" />
 
@@ -65,9 +50,6 @@
     <!--  34  -->
         <gradient
             android:angle="135"
-            android:centerX="float"
-            android:centerY="float"
-            android:gradientRadius="integer"
             android:endColor="#EAE5C9"
             android:startColor="#6cc6cb"
             android:type="linear" />

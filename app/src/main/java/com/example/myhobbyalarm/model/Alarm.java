@@ -103,12 +103,13 @@ public final class Alarm implements Parcelable {
 
 
     //ADD VALUE
-    public Alarm(long id, long time, String label, boolean isSnooze, @Days int... days) {
+    public Alarm(long id, long time, String label,boolean isSnooze, String colorTitle, @Days int... days ) {
         this.id = id;
         this.time = time;
         this.label = label;
         this.allDays = buildDaysArray(days);
         this.isSnooze = isSnooze;
+        this.colorTitle = colorTitle;
     }
 
     public long getId() {

@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -31,6 +35,28 @@ public final class AddEditAlarmFragment extends Fragment {
     private TimePicker mTimePicker;
     private EditText mLabel;
     private CheckBox mMon, mTues, mWed, mThurs, mFri, mSat, mSun;
+
+
+    /**
+     * Add for branch DBSnoozeColorAdd 2019,12,11 by YS
+     * about isSnooze,colorTitle
+     * "ADD VALUE"
+     */
+    private Switch edit_alarm_snooze;
+    private static final int[] colorTitle_Id = {
+            R.id.edit_alarm_color_softRed,
+            R.id.edit_alarm_color_lightOrange,
+            R.id.edit_alarm_color_softOrange,
+            R.id.edit_alarm_color_slightlyCyan,
+            R.id.edit_alarm_color_slightlyGreen,
+            R.id.edit_alarm_color_green,
+            R.id.edit_alarm_color_strongCyan,
+            R.id.edit_alarm_color_blue,
+            R.id.edit_alarm_color_moderateBlue,
+            R.id.edit_alarm_color_moderateViolet,
+            R.id.edit_alarm_color_black};
+    private RadioGroup edit_alarm_rdo_g;
+    private RadioButton[] colorTitle = new RadioButton[colorTitle_Id.length];
 
     public static Fragment newInstance(Alarm alarm) {
 
@@ -68,6 +94,15 @@ public final class AddEditAlarmFragment extends Fragment {
 
         setDayCheckboxes(alarm);
 
+        //ADD VALUE
+        edit_alarm_snooze = (Switch) v.findViewById(R.id.edit_alarm_snooze);
+        edit_alarm_snooze.setChecked(alarm.isSnooze());
+        edit_alarm_rdo_g = (RadioGroup) v.findViewById(R.id.edit_alarm_rdo_g);
+        for (int i = 0; i < colorTitle_Id.length; i++) {
+            colorTitle[i] = (RadioButton) v.findViewById(colorTitle_Id[i]);
+        }
+        setDayCheckColorTitle(alarm);
+
         return v;
     }
 
@@ -104,6 +139,48 @@ public final class AddEditAlarmFragment extends Fragment {
         mSun.setChecked(alarm.getDay(Alarm.SUN));
     }
 
+    private void setDayCheckColorTitle(Alarm alarm) {
+        switch (alarm.getColorTitle()) {
+            case "lightOrange":
+                colorTitle[1].setChecked(true);
+                break;
+            case "pink":
+                colorTitle[2].setChecked(true);
+                break;
+            case "softOrange":
+                colorTitle[3].setChecked(true);
+                break;
+            case "slightlyCyan":
+                colorTitle[4].setChecked(true);
+                break;
+            case "slightlyGreen":
+                colorTitle[5].setChecked(true);
+                break;
+            case "green":
+                colorTitle[6].setChecked(true);
+                break;
+            case "strongCyan":
+                colorTitle[7].setChecked(true);
+                break;
+            case "blue":
+                colorTitle[8].setChecked(true);
+                break;
+            case "moderateBlue":
+                colorTitle[9].setChecked(true);
+                break;
+            case "moderateViolet":
+                colorTitle[10].setChecked(true);
+                break;
+            case "black":
+                colorTitle[11].setChecked(true);
+                break;
+            case "softRed":
+            default:
+                colorTitle[0].setChecked(true);
+                break;
+        }
+    }
+
     private void save() {
 
         final Alarm alarm = getAlarm();
@@ -122,6 +199,10 @@ public final class AddEditAlarmFragment extends Fragment {
         alarm.setDay(Alarm.FRI, mFri.isChecked());
         alarm.setDay(Alarm.SAT, mSat.isChecked());
         alarm.setDay(Alarm.SUN, mSun.isChecked());
+
+        //ADD VALUE
+        alarm.setSnooze(edit_alarm_snooze.isChecked());
+        alarm.setColorTitle("lightOrange");
 
         final int rowsUpdated = DatabaseHelper.getInstance(getContext()).updateAlarm(alarm);
         final int messageId = (rowsUpdated == 1) ? R.string.update_complete : R.string.update_failed;
@@ -151,7 +232,7 @@ public final class AddEditAlarmFragment extends Fragment {
 
                 final int rowsDeleted = DatabaseHelper.getInstance(getContext()).deleteAlarm(alarm);
                 int messageId;
-                if(rowsDeleted == 1) {
+                if (rowsDeleted == 1) {
                     messageId = R.string.delete_complete;
                     Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
                     LoadAlarmsService.launchLoadAlarmsService(getContext());
