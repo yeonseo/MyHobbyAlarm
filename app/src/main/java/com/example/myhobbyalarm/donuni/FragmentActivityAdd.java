@@ -1,4 +1,4 @@
-package com.example.hadon.customwidgetlistview;
+package com.example.myhobbyalarm.donuni;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,6 +44,6 @@ public class FragmentActivityAdd extends Fragment implements View.OnClickListene
     }
 
     private void toastDisplay(String s) {
-        Toast.makeText(view.getContext(), s,Toast.LENGTH_LONG).show();
+        Toast.makeText(view.getContext(), s, Toast.LENGTH_LONG).show();
     }
 }

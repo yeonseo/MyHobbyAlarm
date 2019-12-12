@@ -1,7 +1,5 @@
-package com.example.hadon.customwidgetlistview;
+package com.example.myhobbyalarm.donuni;
 
-import android.app.AppComponentFactory;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,7 +8,7 @@ import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
 
-import static com.example.hadon.customwidgetlistview.WidgetListviewProvider.EXTRA_ITEM_POSITION;
+import static com.example.myhobbyalarm.donuni.WidgetListviewProvider.EXTRA_ITEM_POSITION;
 
 /**
  * 런처 앱에 리스트뷰의 어뎁터 역할을 해주는 클래스

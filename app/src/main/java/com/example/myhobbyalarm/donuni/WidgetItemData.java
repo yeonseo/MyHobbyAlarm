@@ -1,6 +1,4 @@
-package com.example.hadon.customwidgetlistview;
-
-import android.util.Log;
+package com.example.myhobbyalarm.donuni;
 
 public class WidgetItemData {
     String date;
