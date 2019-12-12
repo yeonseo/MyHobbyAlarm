@@ -12,6 +12,12 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class Alarm implements Parcelable {
 
+    /**
+     * Add for branch DBSnoozeColorAdd 2019,12,10 by YS
+     * about isSnooze,colorTitle
+     * "ADD VALUE"
+     * */
+
     private Alarm(Parcel in) {
         Log.i(getClass().getSimpleName(), "Creating database...");
         id = in.readLong();
@@ -19,6 +25,10 @@ public final class Alarm implements Parcelable {
         label = in.readString();
         allDays = in.readSparseBooleanArray();
         isEnabled = in.readByte() != 0;
+
+        //ADD VALUE
+        isSnooze = in.readByte() != 0;
+        colorTitle = in.readString();
     }
 
     public static final Creator<Alarm> CREATOR = new Creator<Alarm>() {
@@ -45,6 +55,10 @@ public final class Alarm implements Parcelable {
         parcel.writeString(label);
         parcel.writeSparseBooleanArray(allDays);
         parcel.writeByte((byte) (isEnabled ? 1 : 0));
+
+        //ADD VALUE
+        parcel.writeByte((byte) (isSnooze ? 1 : 0));
+        parcel.writeString(colorTitle);
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -65,6 +79,8 @@ public final class Alarm implements Parcelable {
     private String label;
     private SparseBooleanArray allDays;
     private boolean isEnabled;
+    private boolean isSnooze;
+    private String colorTitle;
 
     public Alarm() {
         this(NO_ID);
@@ -83,6 +99,17 @@ public final class Alarm implements Parcelable {
         this.time = time;
         this.label = label;
         this.allDays = buildDaysArray(days);
+    }
+
+
+    //ADD VALUE
+    public Alarm(long id, long time, String label, boolean isSnooze, String colorTitle, @Days int... days ) {
+        this.id = id;
+        this.time = time;
+        this.label = label;
+        this.allDays = buildDaysArray(days);
+        this.isSnooze = isSnooze;
+        this.colorTitle = colorTitle;
     }
 
     public long getId() {
@@ -125,10 +152,30 @@ public final class Alarm implements Parcelable {
         return isEnabled;
     }
 
-    public int notificationId() {
-        final long id = getId();
-        return (int) (id^(id>>>32));
-    }
+
+    //ADD VALUE
+    public boolean isSnooze() {
+        return isSnooze;}
+    public void setSnooze(boolean snooze) {
+        isSnooze = snooze;}
+
+    public String getColorTitle() {
+        return colorTitle;}
+
+    public void setColorTitle(String colorTitle) {
+        this.colorTitle = colorTitle;}
+
+//    @Override
+//    public String toString() {
+//        return "Alarm{" +
+//                "id=" + id +
+//                ", time=" + time +
+//                ", label='" + label + '\'' +
+//                ", allDays=" + allDays +
+//                ", isEnabled=" + isEnabled +
+//                '}';
+//    }
+    //ADD VALUE
 
     @Override
     public String toString() {
@@ -138,7 +185,17 @@ public final class Alarm implements Parcelable {
                 ", label='" + label + '\'' +
                 ", allDays=" + allDays +
                 ", isEnabled=" + isEnabled +
+                ", isSnooze=" + isSnooze +
+                ", colorTitle='" + colorTitle + '\'' +
                 '}';
+    }
+
+
+
+
+    public int notificationId() {
+        final long id = getId();
+        return (int) (id^(id>>>32));
     }
 
     @Override

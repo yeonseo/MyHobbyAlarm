@@ -30,6 +30,12 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_SUN = "sun";
     public static final String COL_IS_ENABLED = "is_enabled";
 
+    /**
+     * Add for branch DBSnoozeColorAdd 2019,12,10 by YS
+     * */
+    public static final String COL_IS_SNOOZE = "is_snooze";
+    public static final String COL_COLOR = "color_title";
+
     private static DatabaseHelper sInstance = null;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
@@ -59,7 +65,13 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
                 COL_FRI + " INTEGER NOT NULL, " +
                 COL_SAT + " INTEGER NOT NULL, " +
                 COL_SUN + " INTEGER NOT NULL, " +
-                COL_IS_ENABLED + " INTEGER NOT NULL" +
+                COL_IS_ENABLED + " INTEGER NOT NULL," +
+
+                /**
+                 * Add for branch DBSnoozeColorAdd 2019,12,10 by YS
+                 * */
+                COL_IS_SNOOZE + " INTEGER NOT NULL, " +
+                COL_COLOR + " TEXT" +
                 ");";
 
         sqLiteDatabase.execSQL(CREATE_ALARMS_TABLE);
