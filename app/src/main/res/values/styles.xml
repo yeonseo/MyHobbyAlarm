@@ -18,4 +18,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
 </resources>
+
+    <!--슬라이딩패널-->
+    <!--    <style name="ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">-->
+    <!--        <item name="android:displayOptions">homeAsUp</item>-->
+    <!--    </style>-->
