@@ -58,7 +58,7 @@
         android:color="#FFFFFF" />-->
 
     <size
-        android:width="82dp"
+        android:width="10dp"
         android:height="82dp" />
 
     <!--Use android:dashWidth="2dp" and android:dashGap="2dp"

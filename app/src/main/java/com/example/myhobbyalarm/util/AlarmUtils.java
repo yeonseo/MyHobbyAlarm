@@ -126,8 +126,8 @@ public final class AlarmUtils {
 
                 //ADD VALUE
                 alarm.setSnooze(isSnooze);
-                alarm.setColorTitle(color);
 
+                alarm.setColorTitle(color);
                 alarms.add(alarm);
 
             } while (c.moveToNext());

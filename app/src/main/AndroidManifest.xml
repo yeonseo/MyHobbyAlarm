@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--    오픈웨더맵으로부터 날씨 데이터 값을 받기 위한 퍼미션(인터넷 연결이 되어있어야 한다.)-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--    GPS으로 부터 정확한 위치를 얻디 위한 퍼미션-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--    네트워크로부터 위치를 얻기 위한 퍼미션-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
