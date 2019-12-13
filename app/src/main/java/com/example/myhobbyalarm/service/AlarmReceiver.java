@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 
@@ -72,8 +73,38 @@ public final class AlarmReceiver extends BroadcastReceiver {
 
         manager.notify(id, builder.build());
 
+
+        /**
+         * Add for branch DBSnoozeColorAdd 2019,12,12 by YS
+         * about isSnooze
+         * "ADD VALUE"
+         */
+        //스누즈 값이 true일 시, 한번 더 알림을 실행한다.
+        setSnoozeAlarm(context,alarm);
+
         //Reset Alarm manually
         setReminderAlarm(context, alarm);
+    }
+
+
+    //ADD VALUE
+    private void setSnoozeAlarm(Context context, Alarm alarm) {
+        long snoozeTime = 60*1000L;
+        if(!alarm.isSnooze()|alarm.getTime()+snoozeTime+2000L<System.currentTimeMillis()){
+            Log.d(TAG, "alarm snooze"+alarm.isSnooze()+", "+alarm.getTime()+snoozeTime);
+        }else {
+            Log.d(TAG, "alarm snooze"+alarm.isSnooze());
+            AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(context, AlarmReceiver.class);
+            final Bundle bundle = new Bundle();
+            bundle.putParcelable(ALARM_KEY, alarm);
+            intent.putExtra(BUNDLE_EXTRA, bundle);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime() +
+                            snoozeTime, alarmIntent);
+        }
     }
 
     //Convenience method for setting a notification

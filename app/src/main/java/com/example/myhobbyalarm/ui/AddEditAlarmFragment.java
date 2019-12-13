@@ -2,6 +2,7 @@ package com.example.myhobbyalarm.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,11 +31,12 @@ import com.example.myhobbyalarm.util.ViewUtils;
 
 import java.util.Calendar;
 
-public final class AddEditAlarmFragment extends Fragment {
+public final class AddEditAlarmFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
 
     private TimePicker mTimePicker;
     private EditText mLabel;
     private CheckBox mMon, mTues, mWed, mThurs, mFri, mSat, mSun;
+    private String colorTitleSet;
 
 
     /**
@@ -102,7 +104,7 @@ public final class AddEditAlarmFragment extends Fragment {
             colorTitle[i] = (RadioButton) v.findViewById(colorTitle_Id[i]);
         }
         setDayCheckColorTitle(alarm);
-
+        edit_alarm_rdo_g.setOnCheckedChangeListener(this);
         return v;
     }
 
@@ -140,42 +142,39 @@ public final class AddEditAlarmFragment extends Fragment {
     }
 
     private void setDayCheckColorTitle(Alarm alarm) {
-        if(alarm.getColorTitle()==null){
+        if (alarm.getColorTitle() == null) {
             alarm.setColorTitle("softRed");
         }
         switch (alarm.getColorTitle()) {
             case "lightOrange":
                 colorTitle[1].setChecked(true);
                 break;
-            case "pink":
+            case "softOrange":
                 colorTitle[2].setChecked(true);
                 break;
-            case "softOrange":
+            case "slightlyCyan":
                 colorTitle[3].setChecked(true);
                 break;
-            case "slightlyCyan":
+            case "slightlyGreen":
                 colorTitle[4].setChecked(true);
                 break;
-            case "slightlyGreen":
+            case "green":
                 colorTitle[5].setChecked(true);
                 break;
-            case "green":
+            case "strongCyan":
                 colorTitle[6].setChecked(true);
                 break;
-            case "strongCyan":
+            case "blue":
                 colorTitle[7].setChecked(true);
                 break;
-            case "blue":
+            case "moderateBlue":
                 colorTitle[8].setChecked(true);
                 break;
-            case "moderateBlue":
+            case "moderateViolet":
                 colorTitle[9].setChecked(true);
                 break;
-            case "moderateViolet":
-                colorTitle[10].setChecked(true);
-                break;
             case "black":
-                colorTitle[11].setChecked(true);
+                colorTitle[10].setChecked(true);
                 break;
             case "softRed":
             default:
@@ -205,7 +204,8 @@ public final class AddEditAlarmFragment extends Fragment {
 
         //ADD VALUE
         alarm.setSnooze(edit_alarm_snooze.isChecked());
-        alarm.setColorTitle("lightOrange");
+        alarm.setColorTitle(colorTitleSet);
+        Log.d(getClass().getSimpleName(), "setColorTitle colorTitleSet : " + colorTitleSet);
 
         final int rowsUpdated = DatabaseHelper.getInstance(getContext()).updateAlarm(alarm);
         final int messageId = (rowsUpdated == 1) ? R.string.update_complete : R.string.update_failed;
@@ -251,4 +251,45 @@ public final class AddEditAlarmFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.edit_alarm_color_softRed:
+                colorTitleSet = "softRed";
+                break;
+            case R.id.edit_alarm_color_lightOrange:
+                colorTitleSet = "lightOrange";
+                break;
+            case R.id.edit_alarm_color_softOrange:
+                colorTitleSet = "softOrange";
+                break;
+            case R.id.edit_alarm_color_slightlyCyan:
+                colorTitleSet = "slightlyCyan";
+                break;
+            case R.id.edit_alarm_color_slightlyGreen:
+                colorTitleSet = "slightlyGreen";
+                break;
+            case R.id.edit_alarm_color_green:
+                colorTitleSet:
+                colorTitleSet = "green";
+                break;
+            case R.id.edit_alarm_color_strongCyan:
+                colorTitleSet = "strongCyan";
+                break;
+            case R.id.edit_alarm_color_blue:
+                colorTitleSet = "blue";
+                break;
+            case R.id.edit_alarm_color_moderateBlue:
+                colorTitleSet = "moderateBlue";
+                break;
+            case R.id.edit_alarm_color_moderateViolet:
+                colorTitleSet = "moderateViolet";
+                break;
+            case R.id.edit_alarm_color_black:
+                colorTitleSet = "black";
+                break;
+        }
+
+        Log.d(getClass().getSimpleName(), "onCheckedChanged colorTitleSet : " + colorTitleSet);
+    }
 }

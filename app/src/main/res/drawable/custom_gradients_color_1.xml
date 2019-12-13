@@ -10,7 +10,6 @@
         android:bottomRightRadius="0dp"
         android:radius="0dp" />
 
-
     <!--  6  -->
     <gradient
         android:angle="135"
@@ -59,13 +58,13 @@
         android:color="#FFFFFF" />-->
 
     <size
-        android:width="82dp"
+        android:width="10dp"
         android:height="82dp" />
 
     <!--Use android:dashWidth="2dp" and android:dashGap="2dp"
     to add dashes to your stroke-->
     <stroke
-        android:width="2dp"
+        android:width="0dp"
         android:color="#FFFFFF" />
 
     <!--If you want to add padding-->

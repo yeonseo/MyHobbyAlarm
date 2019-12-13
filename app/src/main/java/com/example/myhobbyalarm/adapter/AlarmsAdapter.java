@@ -2,6 +2,7 @@ package com.example.myhobbyalarm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -11,6 +12,7 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -57,6 +59,10 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
         holder.amPm.setText(AlarmUtils.getAmPm(alarm.getTime()));
         holder.label.setText(alarm.getLabel());
         holder.days.setText(buildSelectedDays(alarm));
+
+
+        holder.ar_color.setBackgroundColor(R.color.softOrange);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +123,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
     static final class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView time, amPm, label, days;
+        final ImageView ar_color;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -125,6 +132,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
             amPm = itemView.findViewById(R.id.ar_am_pm);
             label = itemView.findViewById(R.id.ar_label);
             days = itemView.findViewById(R.id.ar_days);
+            ar_color = itemView.findViewById(R.id.ar_color);
 
         }
     }
