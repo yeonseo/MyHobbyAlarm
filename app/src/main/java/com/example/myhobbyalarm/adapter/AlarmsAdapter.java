@@ -2,7 +2,11 @@ package com.example.myhobbyalarm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -45,11 +49,11 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
 
         final Context c = holder.itemView.getContext();
 
-        if(mAccentColor == -1) {
+        if (mAccentColor == -1) {
             mAccentColor = ContextCompat.getColor(c, R.color.blue);
         }
 
-        if(mDays == null){
+        if (mDays == null) {
             mDays = c.getResources().getStringArray(R.array.days_abbreviated);
         }
 
@@ -60,9 +64,65 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
         holder.label.setText(alarm.getLabel());
         holder.days.setText(buildSelectedDays(alarm));
 
+        Log.d(TAG, alarm.toString());
+        int colorSet = R.color.softRed;
+        if (alarm.getColorTitle() == null) alarm.setColorTitle("softRed");
+        Log.d(TAG, "if after : " + alarm.toString());
+        switch (alarm.getColorTitle()) {
+            case "lightOrange":
+                colorSet = R.color.lightOrange;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "softOrange":
+                colorSet = R.color.softOrange;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "slightlyCyan":
+                colorSet = R.color.slightlyCyan;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "slightlyGreen":
+                colorSet = R.color.slightlyGreen;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "green":
+                colorSet = R.color.green;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "strongCyan":
+                colorSet = R.color.strongCyan;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "blue":
+                colorSet = R.color.blue;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "moderateBlue":
+                colorSet = R.color.moderateBlue;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "moderateViolet":
+                colorSet = R.color.moderateViolet;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            case "black":
+                colorSet = R.color.black;
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+            default:
+                holder.ar_color.setColorFilter(colorSet);
+                break;
+        }
 
-        holder.ar_color.setBackgroundColor(R.color.softOrange);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            ColorStateList stateList = ColorStateList.valueOf(c.getResources().getColor(colorSet));
+            holder.ar_color.setBackgroundTintList(stateList);
+        } else {
+            holder.ar_color.getBackground().getCurrent().setColorFilter(
+                    new PorterDuffColorFilter(c.getResources().getColor(colorSet), PorterDuff.Mode.MULTIPLY));
+        }
 
+        holder.ar_color.setColorFilter(colorSet, PorterDuff.Mode.SRC_OVER);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +164,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
             endIndex = startIndex + dayText.length();
 
             final boolean isSelected = days.valueAt(i);
-            if(isSelected) {
+            if (isSelected) {
                 span = new ForegroundColorSpan(mAccentColor);
                 builder.setSpan(span, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
@@ -115,7 +175,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
     }
 
     public void setAlarms(List<Alarm> alarms) {
-        Log.d(TAG,"setAlarms");
+        Log.d(TAG, "setAlarms");
         mAlarms = alarms;
         notifyDataSetChanged();
     }
