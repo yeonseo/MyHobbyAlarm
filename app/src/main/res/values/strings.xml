@@ -1,4 +1,5 @@
 <resources>
+    <string name="appwidget_text">widget</string>
     <string name="app_name">MyHobbyAlarm</string>
     <string name="no_to_dos">You don\'t have any todos</string>
     <string name="remind_me">Remind Me</string>

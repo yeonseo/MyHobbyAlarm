@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/txDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="start|bottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        tools:text="7:00"/>
+
+    <TextView
+        android:id="@+id/ar_am_pm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignBaseline="@+id/ar_time"
+        android:layout_toRightOf="@+id/ar_time"
+        android:layout_toEndOf="@+id/ar_time"
+        tools:text="AM"/>
+
+    <ImageView
+        android:id="@+id/ar_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:tint="@color/blue"
+        android:src="@drawable/ic_alarm_white_24dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/ar_repeat_icon"
+        android:layout_toEndOf="@+id/ar_repeat_icon"
+        android:layout_toLeftOf="@+id/ar_icon"
+        android:layout_toStartOf="@+id/ar_icon"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/txToDo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Get Up"/>
+
+        <TextView
+            android:id="@+id/ar_days"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="M Tu W Th F Sa Su"/>
+
+    </LinearLayout>
+
+</LinearLayout>
