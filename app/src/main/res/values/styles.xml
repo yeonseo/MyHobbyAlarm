@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="drawerArrowStyle">@drawable/custom_gradients_color_1</item>
     </style>
 
     <style name="AlertLandingPageTheme" parent="Theme.AppCompat.NoActionBar">

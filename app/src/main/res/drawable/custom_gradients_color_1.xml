@@ -38,28 +38,28 @@
         android:startColor="#D9ECC7"
         android:type="linear" />
 
-    <!--  22  -->
-    <gradient
-        android:angle="135"
-        android:endColor="#CCFBFF"
-        android:startColor="#EF96C5"
-        android:type="linear" />
+<!--    &lt;!&ndash;  22  &ndash;&gt;-->
+<!--    <gradient-->
+<!--        android:angle="135"-->
+<!--        android:endColor="#CCFBFF"-->
+<!--        android:startColor="#EF96C5"-->
+<!--        android:type="linear" />-->
 
 
-    <!--  34  -->
-        <gradient
-            android:angle="135"
-            android:endColor="#EAE5C9"
-            android:startColor="#6cc6cb"
-            android:type="linear" />
+<!--    &lt;!&ndash;  34  &ndash;&gt;-->
+<!--        <gradient-->
+<!--            android:angle="135"-->
+<!--            android:endColor="#EAE5C9"-->
+<!--            android:startColor="#6cc6cb"-->
+<!--            android:type="linear" />-->
 
     <!--If your shape requires only one solid color-->
     <!--<solid
         android:color="#FFFFFF" />-->
 
     <size
-        android:width="10dp"
-        android:height="82dp" />
+        android:width="88dp"
+        android:height="88dp" />
 
     <!--Use android:dashWidth="2dp" and android:dashGap="2dp"
     to add dashes to your stroke-->

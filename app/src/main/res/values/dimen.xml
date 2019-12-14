@@ -7,5 +7,5 @@
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="list_padding_vertical_small">8dp</dimen>
     <dimen name="fab_margin_default">16dp</dimen>
-
+    <dimen name="weather_margin_default">70dp</dimen>
 </resources>

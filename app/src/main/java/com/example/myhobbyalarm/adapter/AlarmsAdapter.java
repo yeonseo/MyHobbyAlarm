@@ -71,58 +71,48 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
         switch (alarm.getColorTitle()) {
             case "lightOrange":
                 colorSet = R.color.lightOrange;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "softOrange":
                 colorSet = R.color.softOrange;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "slightlyCyan":
                 colorSet = R.color.slightlyCyan;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "slightlyGreen":
                 colorSet = R.color.slightlyGreen;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "green":
                 colorSet = R.color.green;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "strongCyan":
                 colorSet = R.color.strongCyan;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "blue":
                 colorSet = R.color.blue;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "moderateBlue":
                 colorSet = R.color.moderateBlue;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "moderateViolet":
                 colorSet = R.color.moderateViolet;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             case "black":
                 colorSet = R.color.black;
-                holder.ar_color.setColorFilter(colorSet);
                 break;
             default:
-                holder.ar_color.setColorFilter(colorSet);
                 break;
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             ColorStateList stateList = ColorStateList.valueOf(c.getResources().getColor(colorSet));
             holder.ar_color.setBackgroundTintList(stateList);
+            holder.ar_icon.setImageTintList(stateList);
         } else {
             holder.ar_color.getBackground().getCurrent().setColorFilter(
                     new PorterDuffColorFilter(c.getResources().getColor(colorSet), PorterDuff.Mode.MULTIPLY));
+            holder.ar_icon.getBackground().getCurrent().setColorFilter(
+                    new PorterDuffColorFilter(c.getResources().getColor(colorSet), PorterDuff.Mode.OVERLAY));
         }
-
-        holder.ar_color.setColorFilter(colorSet, PorterDuff.Mode.SRC_OVER);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +173,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
     static final class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView time, amPm, label, days;
-        final ImageView ar_color;
+        final ImageView ar_color,ar_icon;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -193,6 +183,7 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmsAdapter.ViewHolder
             label = itemView.findViewById(R.id.ar_label);
             days = itemView.findViewById(R.id.ar_days);
             ar_color = itemView.findViewById(R.id.ar_color);
+            ar_icon = itemView.findViewById(R.id.ar_icon);
 
         }
     }

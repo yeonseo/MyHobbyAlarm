@@ -2,6 +2,11 @@ package com.example.myhobbyalarm.ui;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +64,7 @@ public class MainFragment extends Fragment
         rv.setItemAnimator(new DefaultItemAnimator());
 
         final FloatingActionButton fab = v.findViewById(R.id.fab);
+        fab.setBackgroundResource(R.drawable.custom_gradients_color_1);
         fab.setOnClickListener(view -> {
             AlarmUtils.checkAlarmPermissions(getActivity());
             final Intent i = buildAddEditAlarmActivityIntent(getContext(), ADD_ALARM);

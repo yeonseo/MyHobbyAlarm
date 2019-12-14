@@ -8,14 +8,18 @@
     sothree:umanoDragView="@+id/dragView"
     sothree:umanoFadeColor="@android:color/transparent"
     sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="68dp"
+    sothree:umanoPanelHeight="@dimen/weather_margin_default"
     sothree:umanoParallaxOffset="100dp"
     sothree:umanoScrollableView="@id/recycler"
-    sothree:umanoShadowHeight="4dp">
+    sothree:umanoShadowHeight="4dp"
+    android:orientation="vertical">
 
+    //recyclerBox 뷰 부분
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/recyclerBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/weather_margin_default">
 
         <com.example.myhobbyalarm.view.EmptyRecyclerView
             android:id="@+id/recycler"
@@ -32,8 +36,8 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
-            android:layout_gravity="center_vertical|end"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin_default"
             android:layout_marginRight="@dimen/fab_margin_default"
             android:layout_marginBottom="@dimen/fab_margin_default"

@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             getSupportActionBar().setTitle("Task Reminder");
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+            getSupportActionBar().setBackgroundDrawable(
+                    new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
 //            replaceFragment(new CalendarFragment());
 
