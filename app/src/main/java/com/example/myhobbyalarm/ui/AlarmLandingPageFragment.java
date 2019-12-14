@@ -21,6 +21,7 @@ public final class AlarmLandingPageFragment extends Fragment implements View.OnC
         final View v = inflater.inflate(R.layout.fragment_alarm_landing_page, container, false);
 
         final Button launchMainActivityBtn = (Button) v.findViewById(R.id.load_main_activity_btn);
+        final Button calendar_btn = (Button) v.findViewById(R.id.calendar_btn);
         final Button dismiss = (Button) v.findViewById(R.id.dismiss_btn);
 
         launchMainActivityBtn.setOnClickListener(this);
@@ -33,10 +34,17 @@ public final class AlarmLandingPageFragment extends Fragment implements View.OnC
     public void onClick(View view) {
 
         switch (view.getId()) {
+            //메인가기
             case R.id.load_main_activity_btn:
                 startActivity(new Intent(getContext(), MainActivity.class));
                 getActivity().finish();
                 break;
+            //기록하기로 수정 예정
+            case R.id.calendar_btn:
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+                break;
+                //취소
             case R.id.dismiss_btn:
                 getActivity().finish();
                 break;

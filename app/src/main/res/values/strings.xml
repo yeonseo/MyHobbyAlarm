@@ -172,13 +172,18 @@
     </string-array>
 
 
-    <!-- Edit Alarm Menu -->
+    <!-- Main Alarm Menu -->
     <string name="action_save">Save</string>
-    <string name="action_delete">Delete</string>
+    <string name="action_calendar">Delete</string>
+
+    <!-- Edit Alarm Menu -->
+<!--    <string name="action_save">Save</string>-->
+    <string name="action_delete">Calendar</string>
 
     <!-- Alarm Landing Page Activity/Fragment -->
-    <string name="launch_main_activity">Launch Main Activity</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="Landing_main_activity">Main</string>
+    <string name="Landing_calendar">일기기록하기</string>
+    <string name="Landing_dismiss">취소</string>
 
     <!-- Days -->
     <string name="monday">Monday</string>
