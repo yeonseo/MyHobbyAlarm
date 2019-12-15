@@ -2,14 +2,12 @@ package com.example.myhobbyalarm.ui;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,7 +28,10 @@ import com.example.myhobbyalarm.view.EmptyRecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import static com.example.myhobbyalarm.calendar.CalendarActivity.MODE_EXTRA;
+import static com.example.myhobbyalarm.calendar.CalendarActivity.buildCalendarActivityIntent;
 import static com.example.myhobbyalarm.ui.AddEditAlarmActivity.ADD_ALARM;
 import static com.example.myhobbyalarm.ui.AddEditAlarmActivity.buildAddEditAlarmActivityIntent;
 
@@ -63,6 +64,8 @@ public class MainFragment extends Fragment
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setItemAnimator(new DefaultItemAnimator());
 
+        setHasOptionsMenu(true);
+
         final FloatingActionButton fab = v.findViewById(R.id.fab);
         fab.setBackgroundResource(R.drawable.custom_gradients_color_1);
         fab.setOnClickListener(view -> {
@@ -90,6 +93,25 @@ public class MainFragment extends Fragment
         super.onStop();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mReceiver);
         Log.d(TAG,"onStop");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_alarm_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_calendar:
+                Date today = new Date();
+                final Intent i = buildCalendarActivityIntent(getContext(), today);
+                startActivity(i);
+                Log.d(TAG,"onCreateView, FloatingActionButton");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
