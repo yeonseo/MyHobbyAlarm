@@ -30,17 +30,6 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                      <entry key="clipartAsset">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_access_alarms_black_24dp.xml" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                       <entry key="image">
                                         <value>
                                           <PersistentState>
@@ -71,6 +60,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="fontFamily" value="Big Caslon" />
                                                 <entry key="text" value="일" />
                                               </map>
                                             </option>
@@ -81,7 +71,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_check_widget_black" />
+                                      <entry key="assetType" value="TEXT" />
+                                      <entry key="outputName" value="ic_check_sun" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="202020" />
                                     </map>
