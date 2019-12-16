@@ -100,11 +100,11 @@ public class CalendarFragment extends Fragment {
                 oneDayDecorator);
         final Alarm alarm = getAlarm();
 
-        eventDay.put("2019,03,18", "");
-        eventDay.put("2019,10,18", "");
-        eventDay.put("2019,10,18", "");
-        eventDay.put("2019,11,8", "");
-        eventDay.put("2019,11,20", "");
+        eventDay.put("2019,03,18", "TEST");
+        eventDay.put("2019,10,18", "HIHIHI");
+        eventDay.put("2019,10,18", ":-)");
+        eventDay.put("2019,11,8", "HAHAHA");
+        eventDay.put("2019,11,20", "YAY");
         eventDrow();
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -160,6 +160,7 @@ public class CalendarFragment extends Fragment {
     private void eventDrow() {
         for (String mapkey : eventDay.keySet()) {
             result.add(mapkey);
+            Log.i("shot_Day test", mapkey + "");
         }
         apiSimulator = (ApiSimulator) new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
     }
