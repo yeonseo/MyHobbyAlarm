@@ -283,7 +283,7 @@ public class MainFragment extends Fragment
                 tvTempMin.setText(tempMin);
                 tvTempMax.setText(tempMax);
 
-                Glide.with(getActivity()).load(iconUrl).placeholder().into(weatherImage);
+                Glide.with(getActivity()).load(iconUrl).into(weatherImage);
 
 
 
@@ -417,12 +417,6 @@ public class MainFragment extends Fragment
                         break;
                     case 711:
                         tvStatus.setText("	연기	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.secondary_text).setHeaderDrawable((Drawable) imageCode).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                            }
-                        }).show();
                         break;
                     case 721:
                         tvStatus.setText("	실안개	");
@@ -473,7 +467,7 @@ public class MainFragment extends Fragment
                         break;
                     case 803:
                         tvStatus.setText("	구름이 거의 없는 하늘	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.mipmap.hail).onPositive(new MaterialDialog.SingleButtonCallback() {
+                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.hail).onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
@@ -696,7 +690,7 @@ public class MainFragment extends Fragment
     private void showDialogForLocationServiceSetting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("위치 서비스가 비활성화되어있습니다.");
-        builder.setIcon(R.mipmap.location);
+        builder.setIcon(R.drawable.location);
         builder.setMessage("TODO 어플을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
                 + "위치 설정을 활성화하시겠습니까?");
         builder.setCancelable(true);
