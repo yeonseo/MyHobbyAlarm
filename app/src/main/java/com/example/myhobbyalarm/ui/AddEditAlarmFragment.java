@@ -77,6 +77,34 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
         final View v = inflater.inflate(R.layout.fragment_add_edit_alarm, container, false);
 
         setHasOptionsMenu(true);
+
+        final Alarm alarm = getAlarm();
+
+        mTimePicker = (TimePicker) v.findViewById(R.id.edit_alarm_time_picker);
+        ViewUtils.setTimePickerTime(mTimePicker, alarm.getTime());
+
+        mLabel = (EditText) v.findViewById(R.id.edit_alarm_label);
+        mLabel.setText(alarm.getLabel());
+
+        mMon = (CheckBox) v.findViewById(R.id.edit_alarm_mon);
+        mTues = (CheckBox) v.findViewById(R.id.edit_alarm_tues);
+        mWed = (CheckBox) v.findViewById(R.id.edit_alarm_wed);
+        mThurs = (CheckBox) v.findViewById(R.id.edit_alarm_thurs);
+        mFri = (CheckBox) v.findViewById(R.id.edit_alarm_fri);
+        mSat = (CheckBox) v.findViewById(R.id.edit_alarm_sat);
+        mSun = (CheckBox) v.findViewById(R.id.edit_alarm_sun);
+
+        setDayCheckboxes(alarm);
+
+        //ADD VALUE
+        edit_alarm_snooze = (Switch) v.findViewById(R.id.edit_alarm_snooze);
+        edit_alarm_snooze.setChecked(alarm.isSnooze());
+        edit_alarm_rdo_g = (RadioGroup) v.findViewById(R.id.edit_alarm_rdo_g);
+        for (int i = 0; i < colorTitle_Id.length; i++) {
+            colorTitle[i] = (RadioButton) v.findViewById(colorTitle_Id[i]);
+        }
+        setDayCheckColorTitle(alarm);
+        edit_alarm_rdo_g.setOnCheckedChangeListener(this);
         return v;
     }
 
