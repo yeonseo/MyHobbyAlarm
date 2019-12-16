@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -36,6 +37,10 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.androdocs.httprequest.HttpRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.example.myhobbyalarm.R;
 import com.example.myhobbyalarm.adapter.AlarmsAdapter;
 import com.example.myhobbyalarm.model.Alarm;
@@ -46,6 +51,7 @@ import com.example.myhobbyalarm.view.DividerItemDecoration;
 import com.example.myhobbyalarm.view.EmptyRecyclerView;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,6 +86,8 @@ public class MainFragment extends Fragment
     static double LON, LAT;
     ImageView weatherImage;
     ImageButton imgBtnRefresh;
+
+
 
     //Gps
     private GpsTracker gpsTracker;
@@ -153,6 +161,17 @@ public class MainFragment extends Fragment
         tvGPS.setOnClickListener(this);
         imgBtnRefresh.setOnClickListener(this);
 
+
+        long now = System.currentTimeMillis();
+        Date mDate=new Date(now);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("hh:mm:ss aa");
+        String getTime =simpleDateFormat.format(mDate);
+        Log.d("시간 체크", "onClick "+getTime+" "+now);
+
+//        if(now > 1576464149938L) { //18시 이후
+//
+//        }
+
         return v;
 
     }
@@ -160,6 +179,7 @@ public class MainFragment extends Fragment
     @Override
     public void onClick(View view) {
         refreshGPSWeather();
+
     }
 
     private void refreshGPSWeather() {
@@ -174,39 +194,15 @@ public class MainFragment extends Fragment
                     "", Toast.LENGTH_LONG).show();
         } else {
 
-
             String address = getCurrentAddress(latitude, longitude);
             tvGPS.setText(address);
 
             Toast.makeText(getActivity(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
 
-//        LAT = Math.round(latitude * 100) / 100.0;
             LAT = latitude;
             LON = longitude;
-//        LON = Math.round(longitude * 100) / 100.0;
+
             new weatherTask().execute();
-            Log.d("테스트", "onClick" + LAT);
-            Log.d("테스트", "onClick" + LON);
-
-/**
- * 여기 다시 해야 함
- */
-//            try {
-//
-//
-//            }  catch (NullPointerException nullPointerException) {
-//                Toast.makeText(getApplicationContext(), "오류잡았드아아", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            catch (RuntimeException runtimeException){
-//                Toast.makeText(getApplicationContext(), "오류잡았드아아", Toast.LENGTH_LONG).show();
-//
-//            }
-
-
-            Log.d("테스트", "onClick2" + LAT);
-            Log.d("테스트", "onClick2" + LON);
 
         }
 
@@ -219,17 +215,9 @@ public class MainFragment extends Fragment
      */
     public class weatherTask extends AsyncTask<String, Void, String> {
 
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            /* Showing the ProgressBar, Making the main design GONE */
-//            findViewById(R.id.loader).setVisibility(View.VISIBLE);
-//            findViewById(R.id.mainContainer).setVisibility(View.GONE);
-//            findViewById(R.id.errorText).setVisibility(View.GONE);
         }
 
         protected String doInBackground(String... args) {
@@ -239,12 +227,8 @@ public class MainFragment extends Fragment
 
             String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?lat=" + LAT + "&lon=" + LON + "&units=metric&appid=" + API);
             Log.d("테스트", "doInBack" + response);
-
-
-
             return response;
         }
-
 
         @Override
         protected void onPostExecute(String result) {
@@ -299,7 +283,9 @@ public class MainFragment extends Fragment
                 tvTempMin.setText(tempMin);
                 tvTempMax.setText(tempMax);
 
-                Glide.with(getActivity()).load(iconUrl).into(weatherImage);
+                Glide.with(getActivity()).load(iconUrl).placeholder().into(weatherImage);
+
+
 
                 switch (id) {
                     case 200:
@@ -421,12 +407,8 @@ public class MainFragment extends Fragment
                         break;
                     case 701:
                         tvStatus.setText("	안개	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘은 안개가 짙은 날이에요").setDescription("운전 조심! 하세요!!").setPositiveText("일정 등록하러 가기").setHeaderColor(R.color.divider).setIcon(R.mipmap.foggyday).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                            }
-                        }).setNegativeText("닫기").onNegative(new MaterialDialog.SingleButtonCallback() {
+                        new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘은 안개 낀 날이에요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.secondary_text).setIcon(R.drawable.foggyday).onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
@@ -435,12 +417,7 @@ public class MainFragment extends Fragment
                         break;
                     case 711:
                         tvStatus.setText("	연기	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘은 안개가 짙은 날이에요").setDescription("운전 조심! 하세요!!").setPositiveText("일정 등록하러 가기").setHeaderColor(R.color.divider).setIcon(R.mipmap.foggyday).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                            }
-                        }).setNegativeText("닫기").onNegative(new MaterialDialog.SingleButtonCallback() {
+                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.secondary_text).setHeaderDrawable((Drawable) imageCode).onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
@@ -473,7 +450,13 @@ public class MainFragment extends Fragment
                         break;
                     case 800:
                         tvStatus.setText("	구름 한 점 없는 맑은 하늘	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("일정 등록하러 가기").setHeaderColor(R.color.slightlyCyan).setIcon(R.mipmap.sunny).onPositive(new MaterialDialog.SingleButtonCallback() {
+//                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("일정 등록하러 가기").setHeaderColor(R.color.slightlyCyan).setIcon(R.mipmap.sunny).onPositive(new MaterialDialog.SingleButtonCallback() {
+//                            @Override
+//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                            }
+//                        }).show();
+                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.sunny).onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 

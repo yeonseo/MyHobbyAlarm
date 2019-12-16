@@ -57,6 +57,8 @@ dependencies {
     //material alertDialog를 위한 라이브러리
     implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
 
+    implementation 'com.mikepenz:iconics-core:2.8.2@aar'
+
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
