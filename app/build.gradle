@@ -54,6 +54,9 @@ dependencies {
     //날씨 아이콘 가져오기 위한 라이브러리(구글개발)
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
+    //material alertDialog를 위한 라이브러리
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
