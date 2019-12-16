@@ -41,6 +41,8 @@ public class WidgetListviewProvider extends AppWidgetProvider {
     public static final String WIDGET_BUTTON_EVENT_CHECK_STRING = "buttonEventKey";
     public static final String WIDGET_LIST_ITEM_EVENT_CHECK_STRING = "ListItemEventKey";
 
+    static AppWidgetManager staticAppWidgetManager;
+    static int[] staticAppWidgetIds;
     public ArrayList<Alarm> alarms= new ArrayList<Alarm>();
     List<Alarm> alarmsDataList;
     Context context;
@@ -54,6 +56,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
      */
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 updateAppWidget");
 
 //        여기부분 다 사용할 일 없어져서 주석처리함!
         CharSequence widgetText = context.getString(R.string.appwidget_text);
@@ -79,6 +82,9 @@ public class WidgetListviewProvider extends AppWidgetProvider {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        staticAppWidgetManager = appWidgetManager;
+        staticAppWidgetIds = appWidgetIds;
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 onUpdate");
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
@@ -137,6 +143,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 onAppWidgetOptionsChanged");
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.list_view_widget);
 
         resizeWidget(newOptions, views);
@@ -145,6 +152,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
     }
 
     private void resizeWidget(Bundle appWidgetOptions, RemoteViews views) {
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 resizeWidget");
         int minWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
         int maxWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
         int minHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
@@ -163,6 +171,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 onReceive");
 
         this.context = context;
         setData();
@@ -224,7 +233,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
     }
 
     public void setData() {
-        Log.d("ㅁㅁ","MyRemoteViewsFactory 의 setData");
+        Log.d("ㅁㅁ","WidgetListviewProvider 의 setData");
 
         alarmsDataList = DatabaseHelper.getInstance(context).getAlarms();
         alarms.removeAll(alarms);
