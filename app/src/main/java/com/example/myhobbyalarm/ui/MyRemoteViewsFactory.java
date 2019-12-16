@@ -2,11 +2,17 @@ package com.example.myhobbyalarm.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.myhobbyalarm.R;
+import com.example.myhobbyalarm.adapter.AlarmsAdapter;
 import com.example.myhobbyalarm.data.DatabaseHelper;
 import com.example.myhobbyalarm.model.Alarm;
 import com.example.myhobbyalarm.util.AlarmUtils;
@@ -20,7 +26,9 @@ import static com.example.myhobbyalarm.ui.WidgetListviewProvider.EXTRA_ITEM_POSI
  * 런처 앱에 리스트뷰의 어뎁터 역할을 해주는 클래스
  */
 class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
-
+    //요일
+    private String[] mDays;
+    private int mAccentColor = -1;
 
     //context 설정하기
     public Context context = null;
@@ -57,6 +65,7 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
     @Override
     public void onDataSetChanged() {
         setData();
+
         Log.d("ㅁㅁ","MyRemoteViewsFactory 의 onDataSetChanged");
     }
 
@@ -99,6 +108,7 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
         listviewWidget.setTextViewText(R.id.txDate, AlarmUtils.getReadableTime(alarms.get(position).getTime())+"");
         listviewWidget.setTextViewText(R.id.ar_am_pm, AlarmUtils.getAmPm(alarms.get(position).getTime())+"");
 //        listviewWidget.setTextViewText(R.id.ar_days, AlarmsAdapter.buildSelectedDays(alarms.get(position)));
+        listviewWidget.setTextViewText(R.id.ar_days, buildSelectedDays(alarms.get(position)));
 
 
 
@@ -142,6 +152,36 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
     @Override
     public boolean hasStableIds() {
         return false;
+    }
+
+    private Spannable buildSelectedDays(Alarm alarm) {
+        mDays = context.getResources().getStringArray(R.array.days_abbreviated);
+        final int numDays = 7;
+        final SparseBooleanArray days = alarm.getDays();
+
+        final SpannableStringBuilder builder = new SpannableStringBuilder();
+        ForegroundColorSpan span;
+
+        int startIndex, endIndex;
+        for (int i = 0; i < numDays; i++) {
+
+            startIndex = builder.length();
+
+            final String dayText = mDays[i];
+            builder.append(dayText);
+            builder.append(" ");
+
+            endIndex = startIndex + dayText.length();
+
+            final boolean isSelected = days.valueAt(i);
+            if (isSelected) {
+                span = new ForegroundColorSpan(mAccentColor);
+                builder.setSpan(span, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+
+        return builder;
+
     }
 
 

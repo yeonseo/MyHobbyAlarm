@@ -156,6 +156,15 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
     }
 
     private void save() {
+        // donuni widget listView 새로고침!
+        if(WidgetListviewProvider.staticAppWidgetIds == null){
+
+        }else{
+            WidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+
+        }
+
 
         final Alarm alarm = getAlarm();
 
@@ -220,6 +229,16 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
         });
         builder.setNegativeButton(R.string.no, null);
         builder.show();
+
+        // donuni widget listView 새로고침!
+        if(WidgetListviewProvider.staticAppWidgetIds == null){
+
+        }else{
+            WidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+
+        }
+
 
     }
 
