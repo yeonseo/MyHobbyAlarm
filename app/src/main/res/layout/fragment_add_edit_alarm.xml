@@ -81,142 +81,88 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/edit_alarm_mon"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:background="@drawable/ic_check_mon"
+                android:button="@drawable/ic_check_day_50dp"
+                android:checked="false"
+                android:gravity="center" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/monday"
-                    tools:text="Mon" />
+            <CheckBox
+                android:id="@+id/edit_alarm_tues"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:background="@drawable/ic_check_tue"
+                android:button="@drawable/ic_check_day_50dp"
+                android:checked="false"
+                android:gravity="center" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/tuesday"
-                    tools:text="Tue" />
+            <CheckBox
+                android:id="@+id/edit_alarm_wed"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:background="@drawable/ic_check_wed"
+                android:button="@drawable/ic_check_day_50dp"
+                android:checked="false"
+                android:gravity="center" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/wednesday"
-                    tools:text="Wed" />
+            <CheckBox
+                android:id="@+id/edit_alarm_thurs"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:background="@drawable/ic_check_thu"
+                android:button="@drawable/ic_check_day_50dp"
+                android:checked="false"
+                android:gravity="center" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/thursday"
-                    tools:text="Thu" />
+            <CheckBox
+                android:id="@+id/edit_alarm_fri"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:background="@drawable/ic_check_fri"
+                android:button="@drawable/ic_check_day_50dp"
+                android:checked="false"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/friday"
-                    tools:text="Fri" />
+            <CheckBox
+                android:id="@+id/edit_alarm_sat"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:background="@drawable/ic_check_sat"
+                android:backgroundTint="@color/blue"
+                android:button="@drawable/ic_check_day_50dp"
+                android:buttonTint="@color/blue"
+                android:checked="false"
+                android:gravity="center" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/saturday"
-                    android:textColor="@color/blue"
-                    tools:text="Sat" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/sunday"
-                    android:textColor="@color/softRed"
-                    tools:text="Sun" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_mon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_tues"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_wed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_thurs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_fri"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_sat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <CheckBox
-                    android:id="@+id/edit_alarm_sun"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-            </LinearLayout>
+            <CheckBox
+                android:id="@+id/edit_alarm_sun"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/list_padding_vertical_small"
+                android:background="@drawable/ic_check_mon"
+                android:backgroundTint="@color/softRed"
+                android:button="@drawable/ic_check_day_50dp"
+                android:buttonTint="@color/softRed"
+                android:checked="false"
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -269,11 +215,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RadioGroup
                     android:id="@+id/edit_alarm_rdo_g"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/edit_alarm_color_softRed"
                         android:layout_width="wrap_content"
@@ -290,7 +238,7 @@
                         android:background="@drawable/ic_fiber_manual_record_50dp"
                         android:backgroundTint="@color/lightOrange"
                         android:button="@drawable/ic_check_50dp"
-                        android:checked="false"/>
+                        android:checked="false" />
 
                     <RadioButton
                         android:id="@+id/edit_alarm_color_softOrange"

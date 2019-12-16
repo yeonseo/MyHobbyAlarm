@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="false">
         <shape android:shape="oval">
@@ -29,8 +29,8 @@
         <shape android:shape="oval">
             <gradient
                 android:angle="135"
-                android:endColor="#FFFFFF"
-                android:startColor="#D3D3D3"
+                android:endColor="#40B8B8B8"
+                android:startColor="#40D5D5D5"
                 android:type="linear" />
 
             <!--If your shape requires only one solid color-->
@@ -38,14 +38,14 @@
                 android:color="#FFFFFF" />-->
 
             <size
-                android:width="50dp"
-                android:height="50dp" />
+                android:width="40dp"
+                android:height="40dp" />
 
             <!--Use android:dashWidth="2dp" and android:dashGap="2dp"
             to add dashes to your stroke-->
 
             <stroke
-                android:width="35dp"
+                android:width="10dp"
                 android:color="@color/colorBackground" />
         </shape>
     </item>
