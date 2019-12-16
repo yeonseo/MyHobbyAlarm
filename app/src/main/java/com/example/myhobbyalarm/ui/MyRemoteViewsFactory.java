@@ -107,7 +107,12 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 //        listviewWidget.setTextViewText(R.id.txToDo, alarms.get(position).getLabel());
 //        listviewWidget.setTextViewText(R.id.txDate, alarms.get(position).getTime()+"");
         listviewWidget.setTextViewText(R.id.txToDo, alarms.get(position).getLabel());
-        listviewWidget.setTextViewText(R.id.txDate, AlarmUtils.getReadableTime(alarms.get(position).getTime())+"");
+        String date = AlarmUtils.getReadableTime(alarms.get(position).getTime())+"";
+        Log.d("ㅁㅁ","date.length()"+date.length());
+        if(date.length()==4){
+            date = "  "+AlarmUtils.getReadableTime(alarms.get(position).getTime())+"";
+        }
+        listviewWidget.setTextViewText(R.id.txDate, date);
         listviewWidget.setTextViewText(R.id.ar_am_pm, AlarmUtils.getAmPm(alarms.get(position).getTime())+"");
 //        listviewWidget.setTextViewText(R.id.ar_days, AlarmsAdapter.buildSelectedDays(alarms.get(position)));
         listviewWidget.setTextViewText(R.id.ar_days, buildSelectedDays(alarms.get(position)));
