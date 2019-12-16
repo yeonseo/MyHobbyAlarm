@@ -11,8 +11,9 @@ import android.util.SparseBooleanArray;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.myhobbyalarm.R;
-import com.example.myhobbyalarm.adapter.AlarmsAdapter;
 import com.example.myhobbyalarm.data.DatabaseHelper;
 import com.example.myhobbyalarm.model.Alarm;
 import com.example.myhobbyalarm.util.AlarmUtils;
@@ -88,6 +89,7 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
     // 항목 선택 이벤트 발생 시 인텐트에 담겨야 할 항목 데이터를 추가해주어야 하는 함수
     @Override
     public RemoteViews getViewAt(int position) {
+
 //        String label = null;
 //        long time=0;
 //        if (position<alarmsDataList.size()){
@@ -110,6 +112,16 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 //        listviewWidget.setTextViewText(R.id.ar_days, AlarmsAdapter.buildSelectedDays(alarms.get(position)));
         listviewWidget.setTextViewText(R.id.ar_days, buildSelectedDays(alarms.get(position)));
 
+        int alarmColorImageResource = alarmColorSetting(alarms.get(position));
+        Log.d("ㅁㅁ","alarmColorSetting(alarms.get(position))= "+alarmColorImageResource);
+
+        listviewWidget.setImageViewResource(R.id.widget_ar_icon,
+                alarmColorImageResource);
+//
+//        listviewWidget.setImageViewResource(R.id.ar_icon, );
+//        listviewWidget.setImageViewResource(R.id.ar_icon,
+//                alarmColorSetting(alarms.get(position)));
+//        listviewWidget.setImageViewResource();
 
 
         Intent fillIntent = new Intent();
@@ -130,6 +142,57 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
         return listviewWidget;
     }
 
+    private int alarmColorSetting(Alarm alarm) {
+
+        int colorSet = R.drawable.ic_alarm_lightorange_24dp;
+        if (alarm.getColorTitle() == null) alarm.setColorTitle("softRed");
+        switch (alarm.getColorTitle()) {
+            case "lightOrange":
+                colorSet = R.drawable.ic_alarm_lightorange_24dp;
+                break;
+            case "softOrange":
+                colorSet = R.drawable.ic_alarm_softorange_24dp;
+                break;
+            case "slightlyCyan":
+                colorSet = R.drawable.ic_alarm_slightlycyan_24dp;
+                break;
+            case "slightlyGreen":
+                colorSet = R.drawable.ic_alarm_slightlycyan_24dp;
+                break;
+            case "green":
+                colorSet = R.drawable.ic_alarm_green_24dp;
+                break;
+            case "strongCyan":
+                colorSet = R.drawable.ic_alarm_strongcyan_24dp;
+                break;
+            case "blue":
+                colorSet = R.drawable.ic_alarm_blue_24dp;
+                break;
+            case "moderateBlue":
+                colorSet = R.drawable.ic_alarm_moderateblue_24dp;
+                break;
+            case "moderateViolet":
+                colorSet = R.drawable.ic_alarm_moderateviolet_24dp;
+                break;
+            case "black":
+                colorSet = R.drawable.ic_alarm_black_24dp;
+                break;
+            default:
+                break;
+        }
+//
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            ColorStateList stateList = ColorStateList.valueOf(c.getResources().getColor(colorSet));
+//            holder.ar_color.setBackgroundTintList(stateList);
+//            holder.ar_icon.setImageTintList(stateList);
+//        } else {
+//            holder.ar_color.getBackground().getCurrent().setColorFilter(
+//                    new PorterDuffColorFilter(c.getResources().getColor(colorSet), PorterDuff.Mode.MULTIPLY));
+//            holder.ar_icon.getBackground().getCurrent().setColorFilter(
+//                    new PorterDuffColorFilter(c.getResources().getColor(colorSet), PorterDuff.Mode.OVERLAY));
+//        }
+        return colorSet;
+    }
     //로딩 뷰를 표현하기 위해 호출, 없으면 null
     @Override
     public RemoteViews getLoadingView() {
@@ -155,6 +218,10 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
     }
 
     private Spannable buildSelectedDays(Alarm alarm) {
+        if (mAccentColor==-1){
+
+            mAccentColor= ContextCompat.getColor(context, R.color.colorPrimary);
+        }
         mDays = context.getResources().getStringArray(R.array.days_abbreviated);
         final int numDays = 7;
         final SparseBooleanArray days = alarm.getDays();
@@ -183,6 +250,8 @@ class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
         return builder;
 
     }
+
+
 
 
 }

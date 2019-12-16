@@ -33,15 +33,14 @@
         tools:text="AM"/>
 
     <ImageView
-        android:id="@+id/ar_icon"
+        android:id="@+id/widget_ar_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:tint="@color/blue"
-        android:src="@drawable/ic_alarm_white_24dp"/>
+        android:padding="12dp"
+        android:src="@drawable/ic_alarm_white_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
