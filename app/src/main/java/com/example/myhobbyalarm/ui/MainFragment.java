@@ -86,7 +86,7 @@ public class MainFragment extends Fragment
     static double LON, LAT;
     ImageView weatherImage;
     ImageButton imgBtnRefresh;
-
+    long now;
 
 
     //Gps
@@ -148,6 +148,8 @@ public class MainFragment extends Fragment
         //달,월,일 가져오는 함수
         currentMonth();
 
+         now= System.currentTimeMillis();
+
         /**Gps onCreate************************
          */
         if (!checkLocationServicesStatus()) {
@@ -162,11 +164,6 @@ public class MainFragment extends Fragment
         imgBtnRefresh.setOnClickListener(this);
 
 
-        long now = System.currentTimeMillis();
-        Date mDate=new Date(now);
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("hh:mm:ss aa");
-        String getTime =simpleDateFormat.format(mDate);
-        Log.d("시간 체크", "onClick "+getTime+" "+now);
 
 //        if(now > 1576464149938L) { //18시 이후
 //
@@ -179,6 +176,10 @@ public class MainFragment extends Fragment
     @Override
     public void onClick(View view) {
         refreshGPSWeather();
+        Date mDate=new Date(now);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm:ss aa");
+        String getTime=simpleDateFormat.format(mDate);
+        Log.d("시간체크", "onclick"+getTime+""+now);
 
     }
 
@@ -290,9 +291,26 @@ public class MainFragment extends Fragment
                 switch (id) {
                     case 200:
                         tvStatus.setText("	가벼운 비를 동반한 뇌우	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("가벼운 비와 함께 천둥번개가 치고 있어요").setDescription("").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_rain_thunder).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("가벼운 비와 함께 천둥번개가 치고 있어요").setDescription("").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_rain_thunder).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
+
                         break;
                     case 201:
                         tvStatus.setText("	비를 동반한 뇌우	");
+
                         break;
                     case 202:
                         tvStatus.setText("	강한 비를 동반한 뇌우	");
@@ -361,140 +379,299 @@ public class MainFragment extends Fragment
                         tvStatus.setText("	극심한 비	");
                         break;
                     case 511:
-                        tvStatus.setText("	우박	");
+                        tvStatus.setText("우박");
                         break;
                     case 520:
-                        tvStatus.setText("	약한 소나기 비	");
+                        tvStatus.setText("약한 소나기");
                         break;
                     case 521:
-                        tvStatus.setText("	소나기 비	");
+                        tvStatus.setText("소나기");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("소나기").setDescription("언제 내리는지 언제 그치는지 모르니 우산 챙기는거 잊지 마세욧").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_rain).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("소나기").setDescription("언제 내리는지 언제 그치는지 모르니 우산 챙기는거 잊지 마세욧").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_rain).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 522:
-                        tvStatus.setText("	강한 소나기 비	");
+                        tvStatus.setText("강한 소나기");
                         break;
                     case 531:
-                        tvStatus.setText("	불규칙적 소나기 비	");
+                        tvStatus.setText("들쑥날쑥한 소나기");
                         break;
                     case 600:
-                        tvStatus.setText("	가벼운 눈	");
+                        tvStatus.setText("적게 내리는 눈");
                         break;
                     case 601:
                         tvStatus.setText("	눈	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("눈이에요 눈").setDescription("하얀 눈이 내려와~~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_snow).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("눈이에요 눈").setDescription("하얀 눈이 내려와~~").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_snow).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 602:
-                        tvStatus.setText("	강한 눈	");
+                        tvStatus.setText("폭설");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("폭설입니다!!").setDescription("오늘 같은 날에 밖으로 나가면 집으로 못돌아와요ㅠㅠ 나가지 마세요 폭설인데도 회사에 나오라고 하는 회사면 거기는 나쁜회사").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.snow).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("폭설입니다!!").setDescription("오늘 같은 날에 밖으로 나가면 집으로 못돌아와요ㅠㅠ 나가지 마세요 폭설인데도 회사에 나오라고 하는 회사면 거기는 나쁜회사").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.snow).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 611:
                         tvStatus.setText("	진눈깨비	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("비와 눈이 섞여서 내리고 있어요").setDescription("외출 하실 때 우산 잊지 마세요!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_sleet).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("비와 눈이 섞여서 내리고 있어요").setDescription("외출 하실 때 우산 잊지 마세요!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_sleet).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 612:
-                        tvStatus.setText("	소나기 진눈깨비	");
+                        tvStatus.setText("소나기성 진눈깨비");
                         break;
                     case 615:
-                        tvStatus.setText("	약한 비와 눈	");
+                        tvStatus.setText("약한 비와 눈");
                         break;
                     case 616:
-                        tvStatus.setText("	비와 눈	");
+                        tvStatus.setText("비와 눈");
                         break;
                     case 620:
-                        tvStatus.setText("	약한 소나기 눈	");
+                        tvStatus.setText("약한 소나기성 눈");
                         break;
                     case 621:
-                        tvStatus.setText("	소나기 눈	");
+                        tvStatus.setText("소나기성 눈");
                         break;
                     case 622:
-                        tvStatus.setText("	강한 소나기 눈	");
+                        tvStatus.setText("강한 소나기성 눈");
                         break;
                     case 701:
-                        tvStatus.setText("	안개	");
+                        tvStatus.setText("옅은 안개");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("옅은 안개가 끼었어요").setDescription("옅지만 안개는 안개니깐 안전운전!!하세요").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mist).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘은 안개 낀 날이에요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.secondary_text).setIcon(R.drawable.foggyday).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("옅은 안개가 끼었어요").setDescription("옅지만 안개는 안개니깐 안전운전!!하세요").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.mist).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                            }
-                        }).show();
+                                }
+                            }).show();
+                        }
                         break;
                     case 711:
                         tvStatus.setText("	연기	");
+
                         break;
                     case 721:
-                        tvStatus.setText("	실안개	");
+                        tvStatus.setText("실안개	");
+
                         break;
                     case 731:
-                        tvStatus.setText("	모래 먼지	");
+                        tvStatus.setText("모래 먼지");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("으악 모래먼지 낀 날씨에요").setDescription("마스크 꼭 착용하고 외출하셔야 해요!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("으악 모래먼지 낀 날씨에요").setDescription("마스크 꼭 착용하고 외출하셔야 해요!!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 741:
-                        tvStatus.setText("	안개	");
+                        tvStatus.setText("안개");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("안개 낀 날이에요").setDescription("안개 낀 날에는 운전에 더 조심해야 하는거 아시죠? 안전운전 하세요~~!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.fog).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("안개 낀 날이에요").setDescription("안개 낀 날에는 운전에 더 조심해야 하는거 아시죠? 안전운전 하세요~~!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.fog).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 751:
-                        tvStatus.setText("	모래	");
+                        tvStatus.setText("모래");
+
                         break;
                     case 761:
                         tvStatus.setText("	먼지	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("먼지...싫어").setDescription("마스크 필수 착용입니다!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("먼지...싫어").setDescription("마스크 필수 착용입니다!!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 762:
                         tvStatus.setText("	화산재	");
+
                         break;
                     case 771:
                         tvStatus.setText("	돌풍	");
+
                         break;
                     case 781:
                         tvStatus.setText("	토네이도	");
+
                         break;
                     case 800:
-                        tvStatus.setText("	구름 한 점 없는 맑은 하늘	");
-//                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("일정 등록하러 가기").setHeaderColor(R.color.slightlyCyan).setIcon(R.mipmap.sunny).onPositive(new MaterialDialog.SingleButtonCallback() {
-//                            @Override
-//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//
-//                            }
-//                        }).show();
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.sunny).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        tvStatus.setText("맑은 하늘");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("구름 한 점 없는 맑은 날이에요").setDescription("오늘 같은 날씨에는 가까운 공원에 가서 산책하는 것이 어떠세요?").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_clear).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                            }
-                        }).show();
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("구름 한 점 없는 맑은 날이에요").setDescription("오늘 같은 날씨에는 가까운 공원에 가서 산책하는 것이 어떠세요?").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_clear).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                                }
+                            }).show();
+                        }
                         break;
                     case 801:
-                        tvStatus.setText("	약간의 구름이 낀 하늘	");
-
+                        tvStatus.setText("약간의 구름 낀 하늘");
                         break;
                     case 802:
                         tvStatus.setText("	드문드문 구름이 낀 하늘	");
+
                         break;
                     case 803:
-                        tvStatus.setText("	구름이 거의 없는 하늘	");
-                        new MaterialStyledDialog.Builder(getActivity()).setTitle("선크림 필쑤우우우우ㅜ").setDescription("산책......").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.hail).onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        tvStatus.setText("갈라져 있는 구름");
 
-                            }
-                        }).show();
                         break;
 
                     case 804:
                         tvStatus.setText("	구름으로 뒤덮인 흐린 하늘	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 900:
-                        tvStatus.setText("	토네이도	");
-                        break;
-                    case 901:
-                        tvStatus.setText("	태풍	");
+                        tvStatus.setText("토네이도");
+
                         break;
                     case 902:
                         tvStatus.setText("	허리케인	");
                         break;
                     case 903:
                         tvStatus.setText("	한랭	");
+
                         break;
                     case 904:
                         tvStatus.setText("	고온	");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("바람이 많이 부는 날씨에요").setDescription("날아가지 않게 조심하세요~!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.hot).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("바람이 많이 부는 날씨에요").setDescription("날아가지 않게 조심하세요~!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.hot).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 905:
-                        tvStatus.setText("	바람부는	");
+                        tvStatus.setText("바람이 많이 불어요");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("바람이 많이 부는 날씨에요").setDescription("날아가지 않게 조심하세요~!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.wind).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("바람이 많이 부는 날씨에요").setDescription("날아가지 않게 조심하세요~!").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.wind).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 906:
                         tvStatus.setText("	우박	");
@@ -539,16 +716,9 @@ public class MainFragment extends Fragment
                         tvStatus.setText("날씨를 가져올 수 없습니다.");
 
                 }
-
-
-                /* Views populated, Hiding the loader, Showing the main design */
-//                findViewById(R.id.loader).setVisibility(View.GONE);
-//                findViewById(R.id.mainContainer).setVisibility(View.VISIBLE);
-
-
+                
             } catch (JSONException e) {
-//                findViewById(R.id.loader).setVisibility(View.GONE);
-//                findViewById(R.id.errorText).setVisibility(View.VISIBLE);
+
             }
 
         }
