@@ -3,8 +3,16 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoFadeColor="@android:color/transparent"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="@dimen/weather_margin_default"
+    sothree:umanoParallaxOffset="100dp"
+    sothree:umanoScrollableView="@id/recycler"
+    sothree:umanoShadowHeight="4dp"
     android:scrollbarStyle="outsideOverlay">
 
     <LinearLayout
@@ -24,10 +32,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             tools:text="Time" />
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="280dp"
             app:mcv_selectionColor="#a9dbf0cb"
             app:mcv_showOtherDates="defaults" />
 
@@ -36,27 +44,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
+        <com.example.myhobbyalarm.view.EmptyRecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:background="@drawable/divider" />
+            android:layout_height="match_parent" />
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:text="@string/days"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Days" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:background="@drawable/divider" />
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/fab_margin_default"
+            android:layout_marginRight="@dimen/fab_margin_default"
+            android:layout_marginBottom="@dimen/fab_margin_default"
+            sothree:fabSize="auto"
+            sothree:srcCompat="@drawable/ic_alarm_white_24dp" />
 
     </LinearLayout>
 
