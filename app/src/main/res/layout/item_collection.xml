@@ -17,20 +17,21 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:gravity="right"
+        android:gravity="right|center_vertical"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="7:00" />
 
     <TextView
         android:id="@+id/ar_am_pm"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ar_time"
+        android:layout_toEndOf="@+id/ar_time"
+        android:layout_toRightOf="@+id/ar_time"
+        android:gravity="right"
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_alignBaseline="@+id/ar_time"
-        android:layout_toRightOf="@+id/ar_time"
-        android:layout_toEndOf="@+id/ar_time"
-        tools:text="AM"/>
+        tools:text="AM" />
 
     <ImageView
         android:id="@+id/widget_ar_icon"
@@ -64,8 +65,7 @@
             android:id="@+id/ar_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            tools:text="M Tu W Th F Sa Su" />
+            tools:text="M Tu W Th F Sa Su"/>
 
     </LinearLayout>
 

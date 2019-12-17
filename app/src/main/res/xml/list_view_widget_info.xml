@@ -4,7 +4,7 @@
     android:initialLayout="@layout/list_view_widget"
     android:minWidth="240dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/alarm_clock"
+    android:previewImage="@drawable/alarm_widget_icon"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"></appwidget-provider>
