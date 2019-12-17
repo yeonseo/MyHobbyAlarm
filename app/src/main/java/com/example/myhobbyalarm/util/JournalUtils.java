@@ -72,9 +72,7 @@ public final class JournalUtils {
 
             } while (c.moveToNext());
         }
-
         return journals;
-
     }
 
 

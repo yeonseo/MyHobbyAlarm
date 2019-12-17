@@ -43,6 +43,7 @@
             android:permission="android.permission.BIND_REMOTEVIEWS"></service>
 
         <activity android:name=".ui.AddEditAlarmActivity" />
+        <activity android:name=".ui.AddEditJournalActivity" />
         <activity android:name=".calendar.CalendarActivity" />
 
         <activity
@@ -52,6 +53,10 @@
         <service android:name=".service.LoadAlarmsService" />
 
         <receiver android:name=".service.LoadAlarmsReceiver" />
+
+        <service android:name=".service.LoadJournalsService" />
+
+        <receiver android:name=".service.LoadJournalsReceiver" />
 
         <receiver android:name=".service.AlarmReceiver" />
 

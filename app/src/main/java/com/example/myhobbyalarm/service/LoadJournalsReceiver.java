@@ -23,7 +23,7 @@ public final class LoadJournalsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(getClass().getSimpleName(), "onReceive ...");
+        Log.d(getClass().getSimpleName(), "onReceive ...");
         final ArrayList<Journal> journals =
                 intent.getParcelableArrayListExtra(LoadAlarmsService.ALARMS_EXTRA);
         mListener.onJournalsLoaded(journals);

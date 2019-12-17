@@ -1,6 +1,8 @@
 package com.example.myhobbyalarm.calendar;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,20 +25,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myhobbyalarm.R;
+import com.example.myhobbyalarm.adapter.AlarmsAdapter;
+import com.example.myhobbyalarm.adapter.JournalAdapter;
 import com.example.myhobbyalarm.calendar.decorators.EventDecorator;
 import com.example.myhobbyalarm.calendar.decorators.OneDayDecorator;
 import com.example.myhobbyalarm.calendar.decorators.SaturdayDecorator;
 import com.example.myhobbyalarm.calendar.decorators.SundayDecorator;
-import com.example.myhobbyalarm.data.DatabaseHelper;
 import com.example.myhobbyalarm.model.Alarm;
-import com.example.myhobbyalarm.service.AlarmReceiver;
+import com.example.myhobbyalarm.model.Journal;
 import com.example.myhobbyalarm.service.LoadAlarmsService;
+import com.example.myhobbyalarm.service.LoadJournalsReceiver;
+import com.example.myhobbyalarm.service.LoadJournalsService;
 import com.example.myhobbyalarm.ui.AddEditAlarmActivity;
-import com.example.myhobbyalarm.ui.AddEditAlarmFragment;
-import com.example.myhobbyalarm.ui.MainActivity;
-import com.example.myhobbyalarm.util.ViewUtils;
+import com.example.myhobbyalarm.ui.AddEditJournalActivity;
+import com.example.myhobbyalarm.view.DividerItemDecoration;
+import com.example.myhobbyalarm.view.EmptyRecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -49,7 +58,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-public class CalendarFragment extends Fragment {
+import static com.example.myhobbyalarm.ui.AddEditJournalActivity.buildAddEditJournalActivityIntent;
+import static com.example.myhobbyalarm.ui.AddEditJournalActivity.ADD_JOURNAL;
+
+public class CalendarFragment extends Fragment implements
+        LoadJournalsReceiver.OnJournalsLoadedListener {
+    private static final String TAG = "CalendarFragment";
+    private LoadJournalsReceiver mReceiver;
+    private JournalAdapter mAdapter;
 
     /**
      * Add for branch DBSnoozeColorAdd 2019,12,15 by YS
@@ -65,7 +81,6 @@ public class CalendarFragment extends Fragment {
 
 
     public static Fragment newInstance(Alarm calendar) {
-
         Bundle args = new Bundle();
         args.putParcelable(CalendarActivity.MODE_EXTRA, calendar);
 
@@ -74,7 +89,12 @@ public class CalendarFragment extends Fragment {
         return fragment;
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mReceiver = new LoadJournalsReceiver(this);
+        Log.d(TAG,"onCreate");
+    }
 
 
     @Nullable
@@ -84,6 +104,14 @@ public class CalendarFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         setHasOptionsMenu(true);
+
+        final EmptyRecyclerView rv = v.findViewById(R.id.recycler);
+        mAdapter = new JournalAdapter();
+        rv.setEmptyView(v.findViewById(R.id.empty_view));
+        rv.setAdapter(mAdapter);
+        rv.addItemDecoration(new DividerItemDecoration(getContext()));
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setItemAnimator(new DefaultItemAnimator());
 
         materialCalendarView = (MaterialCalendarView) v.findViewById(R.id.calendarView);
         edtContent = v.findViewById(R.id.edtContent);
@@ -98,7 +126,7 @@ public class CalendarFragment extends Fragment {
                 new SundayDecorator(),
                 new SaturdayDecorator(),
                 oneDayDecorator);
-        final Alarm alarm = getAlarm();
+        final Journal journal = getJournal();
 
         eventDay.put("2019,03,18", "TEST");
         eventDay.put("2019,10,18", "HIHIHI");
@@ -130,7 +158,31 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        final FloatingActionButton fab = v.findViewById(R.id.fab);
+        fab.setBackgroundResource(R.drawable.custom_gradients_color_1);
+        fab.setOnClickListener(view -> {
+            final Intent i = buildAddEditJournalActivityIntent(getContext(), ADD_JOURNAL);
+            startActivity(i);
+            Log.d(TAG,"onCreateView, FloatingActionButton");
+        });
+
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final IntentFilter filter = new IntentFilter(LoadAlarmsService.ACTION_COMPLETE);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, filter);
+        LoadJournalsService.launchLoadJournalsService(getContext());
+        Log.d(TAG,"onStart");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mReceiver);
+        Log.d(TAG,"onStop");
     }
 
 
@@ -144,17 +196,15 @@ public class CalendarFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                save();
                 break;
             case R.id.action_delete:
-                delete();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private Alarm getAlarm() {
-        return getArguments().getParcelable(AddEditAlarmActivity.ALARM_EXTRA);
+    private Journal getJournal() {
+        return getArguments().getParcelable(AddEditJournalActivity.JOURNAL_EXTRA);
     }
 
     private void eventDrow() {
@@ -177,74 +227,6 @@ public class CalendarFragment extends Fragment {
         }
         edtContent.setText("");
         eventDrow();
-    }
-
-    private void save() {
-
-        final Alarm alarm = getAlarm();
-
-//        final Calendar time = Calendar.getInstance();
-//        time.set(Calendar.MINUTE, ViewUtils.getTimePickerMinute(mTimePicker));
-//        time.set(Calendar.HOUR_OF_DAY, ViewUtils.getTimePickerHour(mTimePicker));
-//        alarm.setTime(time.getTimeInMillis());
-//
-//        alarm.setLabel(mLabel.getText().toString());
-//
-//        alarm.setDay(Alarm.MON, mMon.isChecked());
-//        alarm.setDay(Alarm.TUES, mTues.isChecked());
-//        alarm.setDay(Alarm.WED, mWed.isChecked());
-//        alarm.setDay(Alarm.THURS, mThurs.isChecked());
-//        alarm.setDay(Alarm.FRI, mFri.isChecked());
-//        alarm.setDay(Alarm.SAT, mSat.isChecked());
-//        alarm.setDay(Alarm.SUN, mSun.isChecked());
-//
-//        //ADD VALUE
-//        alarm.setSnooze(edit_alarm_snooze.isChecked());
-//        alarm.setColorTitle(colorTitleSet);
-//        Log.d(getClass().getSimpleName(), "setColorTitle colorTitleSet : " + colorTitleSet);
-//
-//        final int rowsUpdated = DatabaseHelper.getInstance(getContext()).updateAlarm(alarm);
-//        final int messageId = (rowsUpdated == 1) ? R.string.update_complete : R.string.update_failed;
-//
-//        Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
-//
-//        AlarmReceiver.setReminderAlarm(getContext(), alarm);
-
-        getActivity().finish();
-
-    }
-
-    private void delete() {
-
-        final Alarm alarm = getAlarm();
-
-        final AlertDialog.Builder builder =
-                new AlertDialog.Builder(getContext(), R.style.DeleteAlarmDialogTheme);
-        builder.setTitle(R.string.delete_dialog_title);
-        builder.setMessage(R.string.delete_dialog_content);
-        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                //Cancel any pending notifications for this alarm
-                AlarmReceiver.cancelReminderAlarm(getContext(), alarm);
-
-                final int rowsDeleted = DatabaseHelper.getInstance(getContext()).deleteAlarm(alarm);
-                int messageId;
-                if (rowsDeleted == 1) {
-                    messageId = R.string.delete_complete;
-                    Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
-                    LoadAlarmsService.launchLoadAlarmsService(getContext());
-                    getActivity().finish();
-                } else {
-                    messageId = R.string.delete_failed;
-                    Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton(R.string.no, null);
-        builder.show();
-
     }
 
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
@@ -291,5 +273,11 @@ public class CalendarFragment extends Fragment {
             }
             materialCalendarView.addDecorator(new EventDecorator(Color.RED, calendarDays, getActivity()));
         }
+
+    }
+
+    @Override
+    public void onJournalsLoaded(ArrayList<Journal> journals) {
+
     }
 }
