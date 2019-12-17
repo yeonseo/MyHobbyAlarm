@@ -23,13 +23,13 @@
 
     <TextView
         android:id="@+id/ar_time"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/ar_color"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/ar_color"
         android:layout_toRightOf="@+id/ar_color"
-        android:gravity="start|bottom"
+        android:gravity="right|center_vertical"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="7:00" />
 

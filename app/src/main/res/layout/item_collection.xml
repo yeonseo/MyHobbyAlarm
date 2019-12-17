@@ -12,14 +12,14 @@
 
     <TextView
         android:id="@+id/txDate"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="start|bottom"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        tools:text="7:00"/>
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="7:00" />
 
     <TextView
         android:id="@+id/ar_am_pm"
@@ -64,7 +64,8 @@
             android:id="@+id/ar_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="M Tu W Th F Sa Su"/>
+            android:textSize="13sp"
+            tools:text="M Tu W Th F Sa Su" />
 
     </LinearLayout>
 
