@@ -611,14 +611,14 @@ public class MainFragment extends Fragment
                     case 804:
                         tvStatus.setText("	구름으로 뒤덮인 흐린 하늘	");
                         if(now>1576486200921L) {
-                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("하늘이 흐리다고 맘까지 울적해지면 안돼안돼~~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
                                 }
                             }).show();
                         } else {
-                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("운전 조심하세요~").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("하늘이 흐리다고 맘까지 울적해지면 안돼안돼~~").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
@@ -716,7 +716,7 @@ public class MainFragment extends Fragment
                         tvStatus.setText("날씨를 가져올 수 없습니다.");
 
                 }
-                
+
             } catch (JSONException e) {
 
             }
