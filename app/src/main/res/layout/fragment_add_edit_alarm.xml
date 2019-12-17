@@ -157,7 +157,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_margin="@dimen/list_padding_vertical_small"
-                android:background="@drawable/ic_check_mon"
+                android:background="@drawable/ic_check_sun"
                 android:backgroundTint="@color/softRed"
                 android:button="@drawable/ic_check_day_50dp"
                 android:buttonTint="@color/softRed"
