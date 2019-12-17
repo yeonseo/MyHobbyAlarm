@@ -157,8 +157,7 @@ public class WidgetListviewProvider extends AppWidgetProvider {
         int maxWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
         int minHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
         int maxHeight = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
-
-        if (maxHeight > 200) {
+        if (maxHeight > 300) {
             views.setViewVisibility(R.id.widget_test_textview, View.VISIBLE);
             views.setViewVisibility(R.id.centerLinear, View.VISIBLE);
             views.setViewVisibility(R.id.widgetButton, View.VISIBLE);

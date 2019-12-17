@@ -25,6 +25,18 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="opacityPercent" value="80" />
+                                                <entry key="paddingPercent" value="-5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_alarm_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -60,7 +72,6 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="fontFamily" value="Big Caslon" />
                                                 <entry key="text" value="일" />
                                               </map>
                                             </option>
@@ -71,10 +82,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="TEXT" />
-                                      <entry key="outputName" value="ic_check_sun" />
+                                      <entry key="outputName" value="appwidget_preview" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="202020" />
+                                      <entry key="themeColor" value="018d02" />
                                     </map>
                                   </option>
                                 </PersistentState>
