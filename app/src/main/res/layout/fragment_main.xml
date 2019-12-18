@@ -15,6 +15,7 @@
     android:orientation="vertical">
 
     //recyclerBox 뷰 부분
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/recyclerBox"
         android:layout_width="match_parent"

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/list_padding_vertical_small"
+        android:text="@string/titleColor"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/list_padding_vertical_small"
+        android:background="@drawable/divider" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/dialog_edit_alarm_rdo_g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_softRed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/softRed"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_lightOrange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/lightOrange"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_softOrange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/softOrange"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_slightlyCyan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/slightlyCyan"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_slightlyGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/slightlyGreen"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/green"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_strongCyan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/strongCyan"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/blue"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_moderateBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/moderateBlue"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_moderateViolet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/moderateViolet"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/dialog_edit_alarm_color_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_fiber_manual_record_50dp"
+                    android:backgroundTint="@color/black"
+                    android:button="@drawable/ic_check_50dp"
+                    android:checked="false" />
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+
+</LinearLayout>

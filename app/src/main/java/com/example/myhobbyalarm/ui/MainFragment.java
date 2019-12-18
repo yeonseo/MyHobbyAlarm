@@ -19,8 +19,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.example.myhobbyalarm.R;
 import com.example.myhobbyalarm.adapter.AlarmsAdapter;
+import com.example.myhobbyalarm.data.DatabaseHelper;
 import com.example.myhobbyalarm.model.Alarm;
 import com.example.myhobbyalarm.service.LoadAlarmsReceiver;
 import com.example.myhobbyalarm.service.LoadAlarmsService;
@@ -74,6 +78,11 @@ import static com.example.myhobbyalarm.ui.AddEditAlarmActivity.buildAddEditAlarm
 
 public class MainFragment extends Fragment
         implements LoadAlarmsReceiver.OnAlarmsLoadedListener, View.OnClickListener {
+
+    String selectcolor;
+    ArrayList<Alarm> allAlarms= new ArrayList<>();
+    ArrayList<Alarm> daysAlarms= new ArrayList<>();
+    ArrayList<Alarm> colorAlarms= new ArrayList<>();
 
     private static final String TAG = "MainFragment";
     private LoadAlarmsReceiver mReceiver;
@@ -129,7 +138,6 @@ public class MainFragment extends Fragment
         rv.setItemAnimator(new DefaultItemAnimator());
 
         setHasOptionsMenu(true);
-
         final FloatingActionButton fab = v.findViewById(R.id.fab);
         fab.setBackgroundResource(R.drawable.custom_gradients_color_1);
         fab.setOnClickListener(view -> {
@@ -1060,16 +1068,112 @@ public class MainFragment extends Fragment
                 startActivity(i);
                 Log.d(TAG,"onCreateView, FloatingActionButton");
                 break;
+            case R.id.action_refresh:
+
+                mAdapter.setAlarms(allAlarms);
+                break;
+            case R.id.action_color:
+                View colorView=View.inflate(getContext(), R.layout.color_dialog, null);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setView(colorView);
+                RadioGroup dialog_edit_alarm_rdo_g =colorView.findViewById(R.id.dialog_edit_alarm_rdo_g);
+                dialog_edit_alarm_rdo_g.check(-1);
+                dialog_edit_alarm_rdo_g.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.dialog_edit_alarm_color_softRed:
+                                selectcolor = "softRed";
+                                break;
+                            case R.id.dialog_edit_alarm_color_lightOrange:
+                                selectcolor = "lightOrange";
+                                break;
+                            case R.id.dialog_edit_alarm_color_softOrange:
+                                selectcolor = "softOrange";
+                                break;
+                            case R.id.dialog_edit_alarm_color_slightlyCyan:
+                                selectcolor = "slightlyCyan";
+                                break;
+                            case R.id.dialog_edit_alarm_color_slightlyGreen:
+                                selectcolor = "slightlyGreen";
+                                break;
+                            case R.id.dialog_edit_alarm_color_green:
+                                selectcolor = "green";
+                                break;
+                            case R.id.dialog_edit_alarm_color_strongCyan:
+                                selectcolor = "strongCyan";
+                                break;
+                            case R.id.dialog_edit_alarm_color_blue:
+                                selectcolor = "blue";
+                                break;
+                            case R.id.dialog_edit_alarm_color_moderateBlue:
+                                selectcolor = "moderateBlue";
+                                break;
+                            case R.id.dialog_edit_alarm_color_moderateViolet:
+                                selectcolor = "moderateViolet";
+                                break;
+                            case R.id.dialog_edit_alarm_color_black:
+                                selectcolor = "black";
+                                break;
+                        }
+                    }
+                });
+
+                dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(selectcolor==null){
+                            selectcolor="softRed";
+                        }
+                        if(selectcolor!=null){
+                            Log.d(TAG,"if(selectcolor!=null) 11111111");
+                            setColorData(selectcolor);
+                        }
+                        Log.d(TAG,"다이얼로그 확인 버튼 555555555555555");
+
+                        Log.d(TAG,selectcolor);
+                        for(Alarm list : colorAlarms){
+                            Log.d(TAG,list.toString()+"666666666666");
+                        }
+                    }
+                });
+                dialog.setNegativeButton("취소",null);
+                dialog.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void setColorData(String colorTitle) {
+        Log.d(TAG,"setColorData 22222222222");
+        colorAlarms.removeAll(colorAlarms);
+        for (Alarm alarm : allAlarms){
+
+            Log.d(TAG,"for (Alarm alarm : allAlarms) 3333333333333");
+            Log.d(TAG,"if (alarm.getColorTitle()==colorTitle) 전 alarm.getColorTitle() = '"+alarm.getColorTitle()+"'  33333344444");
+            Log.d(TAG,"if (alarm.getColorTitle()==colorTitle) 전 colorTitle = '"+colorTitle+"'   333333333344444");
+            if(alarm.getColorTitle()!=null){
+                if (alarm.getColorTitle().equals(colorTitle)){
+
+                    Log.d(TAG,"if (alarm.getColorTitle()==ColorTitle) 44444444444444");
+                    colorAlarms.add(alarm);
+
+                }
+            }
+
+        }
+        mAdapter.setAlarms(colorAlarms);
+
+    }
     @Override
     public void onAlarmsLoaded(ArrayList<Alarm> alarms) {
+        allAlarms.removeAll(allAlarms);
         for(Alarm list : alarms){
+            allAlarms.add(list);
             Log.d(getClass().getSimpleName(),list.toString());
         }
         mAdapter.setAlarms(alarms);
         Log.d(TAG,"onAlarmsLoaded");
     }
+
 }

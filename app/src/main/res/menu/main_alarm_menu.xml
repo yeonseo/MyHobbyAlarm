@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/refresh"
+        android:title="@string/action_days"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_color"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:title="@string/action_color"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_calendar"
         android:title="@string/action_calendar"
         android:icon="@drawable/ic_date_range_36dp"
