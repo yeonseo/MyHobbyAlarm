@@ -22,12 +22,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.myhobbyalarm.R;
-import com.example.myhobbyalarm.data.DatabaseHelper;
 import com.example.myhobbyalarm.data.DatabaseHelperCalendar;
 import com.example.myhobbyalarm.model.Alarm;
 import com.example.myhobbyalarm.model.Journal;
-import com.example.myhobbyalarm.service.AlarmReceiver;
-import com.example.myhobbyalarm.service.LoadAlarmsService;
 import com.example.myhobbyalarm.service.LoadJournalsService;
 import com.example.myhobbyalarm.util.ViewUtils;
 
@@ -178,11 +175,11 @@ public final class AddEditJournalFragment extends Fragment {
 
     private void save() {
         // donuni widget listView 새로고침!
-        if(WidgetListviewProvider.staticAppWidgetIds == null){
+        if(HomeWidgetListviewProvider.staticAppWidgetIds == null){
 
         }else{
-            WidgetListviewProvider.staticAppWidgetManager.
-                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+            HomeWidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(HomeWidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
 
         }
 
@@ -231,11 +228,11 @@ public final class AddEditJournalFragment extends Fragment {
         builder.show();
 
         // donuni widget listView 새로고침!
-        if(WidgetListviewProvider.staticAppWidgetIds == null){
+        if(HomeWidgetListviewProvider.staticAppWidgetIds == null){
 
         }else{
-            WidgetListviewProvider.staticAppWidgetManager.
-                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+            HomeWidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(HomeWidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
 
         }
 

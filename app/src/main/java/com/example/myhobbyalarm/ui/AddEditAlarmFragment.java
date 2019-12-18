@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -185,11 +184,11 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
 
     private void save() {
         // donuni widget listView 새로고침!
-        if(WidgetListviewProvider.staticAppWidgetIds == null){
+        if(HomeWidgetListviewProvider.staticAppWidgetIds == null){
 
         }else{
-            WidgetListviewProvider.staticAppWidgetManager.
-                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+            HomeWidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(HomeWidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
 
         }
 
@@ -259,11 +258,11 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
         builder.show();
 
         // donuni widget listView 새로고침!
-        if(WidgetListviewProvider.staticAppWidgetIds == null){
+        if(HomeWidgetListviewProvider.staticAppWidgetIds == null){
 
         }else{
-            WidgetListviewProvider.staticAppWidgetManager.
-                    notifyAppWidgetViewDataChanged(WidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
+            HomeWidgetListviewProvider.staticAppWidgetManager.
+                    notifyAppWidgetViewDataChanged(HomeWidgetListviewProvider.staticAppWidgetIds,R.id.widget_listview);
 
         }
 
