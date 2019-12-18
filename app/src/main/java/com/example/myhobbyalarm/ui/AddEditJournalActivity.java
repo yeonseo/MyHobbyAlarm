@@ -78,10 +78,10 @@ public class AddEditJournalActivity extends AppCompatActivity {
         int titleResId;
         switch (getMode()) {
             case EDIT_JOURNAL:
-                titleResId = R.string.edit_alarm;
+                titleResId = R.string.edit_journal;
                 break;
             case ADD_JOURNAL:
-                titleResId = R.string.add_alarm;
+                titleResId = R.string.add_journal;
                 break;
             case UNKNOWN:
             default:
