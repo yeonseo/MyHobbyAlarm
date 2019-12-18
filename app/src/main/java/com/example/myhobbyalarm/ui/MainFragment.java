@@ -605,7 +605,21 @@ public class MainFragment extends Fragment
                         break;
                     case 803:
                         tvStatus.setText("갈라져 있는 구름");
+                        if(now>1576486200921L) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("구름이 갈라져 있어요").setDescription("하늘이 흐리다고 맘까지 울적해지면 안돼안돼~~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_partial_cloud).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("구름이 갈라져 있어요").setDescription("하늘이 흐리다고 맘까지 울적해지면 안돼안돼~~").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.day_partial_cloud).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
 
                     case 804:
@@ -708,7 +722,6 @@ public class MainFragment extends Fragment
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("부드러운 바람이 불고 있어요").setDescription("이런 날에는 한강가서 치맥><").setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.wind).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
                                 }
                             }).show();
                         }
