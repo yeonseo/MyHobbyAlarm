@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -37,10 +36,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.androdocs.httprequest.HttpRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.example.myhobbyalarm.R;
 import com.example.myhobbyalarm.adapter.AlarmsAdapter;
 import com.example.myhobbyalarm.model.Alarm;
@@ -51,7 +46,8 @@ import com.example.myhobbyalarm.view.DividerItemDecoration;
 import com.example.myhobbyalarm.view.EmptyRecyclerView;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mikepenz.iconics.IconicsDrawable;
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,18 +62,21 @@ import java.util.Locale;
 
 
 import static android.content.Context.LOCATION_SERVICE;
-import static com.example.myhobbyalarm.calendar.CalendarActivity.MODE_EXTRA;
+
 import static com.example.myhobbyalarm.calendar.CalendarActivity.buildCalendarActivityIntent;
 import static com.example.myhobbyalarm.ui.AddEditAlarmActivity.ADD_ALARM;
 import static com.example.myhobbyalarm.ui.AddEditAlarmActivity.buildAddEditAlarmActivityIntent;
 
 
 public class MainFragment extends Fragment
-        implements LoadAlarmsReceiver.OnAlarmsLoadedListener, View.OnClickListener {
+        implements LoadAlarmsReceiver.OnAlarmsLoadedListener, View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener {
 
     private static final String TAG = "MainFragment";
     private LoadAlarmsReceiver mReceiver;
     private AlarmsAdapter mAdapter;
+
+    //슬라이딩업패널레이아웃
+    private SlidingUpPanelLayout slidingLayout;
 
     //날씨 관련 변수
     TextView tvUpdated, tvStatus, tvTemp, tvTempMin, tvTempMax;
@@ -97,20 +96,20 @@ public class MainFragment extends Fragment
     static TextView tvGPS; //gps로 받은 주소값 변수
 
     //네트워크
-    private boolean isConnected=false;
+    private boolean isConnected = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReceiver = new LoadAlarmsReceiver(this);
-        Log.d(TAG,"onCreate");
+        Log.d(TAG, "onCreate");
 
-        long now= System.currentTimeMillis();
-        Date mDate=new Date(now);
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
-        String getTime=simpleDateFormat.format(mDate);
-        getTimes=Integer.parseInt(getTime);
-        Log.d("시간체크", "onCreate"+getTimes);
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");
+        String getTime = simpleDateFormat.format(mDate);
+        getTimes = Integer.parseInt(getTime);
+        Log.d("시간체크", "onCreate" + getTimes);
 
     }
 
@@ -119,7 +118,7 @@ public class MainFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View v = inflater.inflate(R.layout.fragment_main, container, false);
-        Log.d(TAG,"onCreateView");
+        Log.d(TAG, "onCreateView");
         final EmptyRecyclerView rv = v.findViewById(R.id.recycler);
         mAdapter = new AlarmsAdapter();
         rv.setEmptyView(v.findViewById(R.id.empty_view));
@@ -136,7 +135,7 @@ public class MainFragment extends Fragment
             AlarmUtils.checkAlarmPermissions(getActivity());
             final Intent i = buildAddEditAlarmActivityIntent(getContext(), ADD_ALARM);
             startActivity(i);
-            Log.d(TAG,"onCreateView, FloatingActionButton");
+            Log.d(TAG, "onCreateView, FloatingActionButton");
         });
 
 
@@ -153,10 +152,11 @@ public class MainFragment extends Fragment
         tvDay = v.findViewById(R.id.tvDay);
         imgBtnRefresh = v.findViewById(R.id.imgBtnRefresh);
 
+        //슬라이딩업패널레이아웃
+        slidingLayout = v.findViewById(R.id.slidingLayout);
+
         //달,월,일 가져오는 함수
         currentMonth();
-
-
 
 
         /**Gps onCreate************************
@@ -169,24 +169,17 @@ public class MainFragment extends Fragment
             checkRunTimePermission();
         }
 
-        tvGPS.setOnClickListener(this);
+        slidingLayout.addPanelSlideListener(this);
         imgBtnRefresh.setOnClickListener(this);
-
-
-
-//        if(now > 1576464149938L) { //18시 이후
-//
-//        }
 
         return v;
 
     }
+
     //새로고침 버튼 클릭 시 현재 위치값을 받아 현재 위치에 대한 날씨를 알려준다.
     @Override
     public void onClick(View view) {
         refreshGPSWeather();
-
-
     }
 
     private void refreshGPSWeather() {
@@ -204,8 +197,6 @@ public class MainFragment extends Fragment
             String address = getCurrentAddress(latitude, longitude);
             tvGPS.setText(address);
 
-            Toast.makeText(getActivity(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-
             LAT = latitude;
             LON = longitude;
 
@@ -215,6 +206,19 @@ public class MainFragment extends Fragment
 
     }
 
+    @Override
+    public void onPanelSlide(View panel, float slideOffset) {
+        Log.d("슬라이드", "onPanelSlide" + slideOffset);
+    }
+
+    @Override
+    public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+        String newStateValue = "EXPANDED";
+        if (String.valueOf(newState) == newStateValue) {
+            refreshGPSWeather();
+        }
+        Log.d("슬라이드", "onPanelStateChanged" + newState);
+    }
 
 
     /**
@@ -241,14 +245,14 @@ public class MainFragment extends Fragment
         protected void onPostExecute(String result) {
 
             //네트워크 연결 오류 시 앱 꺼짐 현상 막음
-            if(result == null) {
-                isConnected=true;
-                if(isConnected) {
+            if (result == null) {
+                isConnected = true;
+                if (isConnected) {
                     Toast.makeText(getActivity(), "인터넷 연결을 확인해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
             } else {
-                isConnected=false;
+                isConnected = false;
             }
 
 
@@ -271,13 +275,6 @@ public class MainFragment extends Fragment
                 String temp = main.getString("temp") + "°C";
                 String tempMin = "최저 기온: " + main.getString("temp_min") + "°C";
                 String tempMax = "최고 기온: " + main.getString("temp_max") + "°C";
-//                String pressure = main.getString("pressure");
-//                String humidity = main.getString("humidity");
-
-//                Long sunrise = sys.getLong("sunrise");
-//                Long sunset = sys.getLong("sunset");
-//                String windSpeed = wind.getString("speed");
-//                String weatherDescription = weather.getString("description");
                 //날씨 코드 값 가져오기
                 int id = weather.getInt("id");
                 //날씨 아이콘 아이디 가져오기
@@ -293,11 +290,10 @@ public class MainFragment extends Fragment
                 Glide.with(getActivity()).load(iconUrl).into(weatherImage);
 
 
-
                 switch (id) {
                     case 200:
                         tvStatus.setText("가벼운 비를 동반한 뇌우");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("가벼운 비와 함께 천둥번개가 치고 있어요").setDescription("외출 하실 때 우산 챙기시고 번개 맞지 않게 피해가세요 ㅎㅎ").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_rain_thunder).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -314,7 +310,7 @@ public class MainFragment extends Fragment
                         break;
                     case 201:
                         tvStatus.setText("	비를 동반한 뇌우	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("비와 함께 천둥번개가 치고 있어요").setDescription("외출 하실 때 우산 챙기시고 번개 맞지 않게 피해가세요 ㅎㅎ").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_rain_thunder).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -403,7 +399,7 @@ public class MainFragment extends Fragment
                         break;
                     case 521:
                         tvStatus.setText("소나기");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("소나기").setDescription("언제 내리는지 언제 그치는지 모르니 우산 챙기는거 잊지 마세욧").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_rain).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -429,7 +425,7 @@ public class MainFragment extends Fragment
                         break;
                     case 601:
                         tvStatus.setText("	눈	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("눈이에요 눈").setDescription("하얀 눈이 내려와~~가끔은 눈 맞는 것도 좋은 것 같아요 ㅎㅎ").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_snow).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -447,7 +443,7 @@ public class MainFragment extends Fragment
                         break;
                     case 602:
                         tvStatus.setText("폭설");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("폭설입니다!!").setDescription("오늘 같은 날에 밖으로 나가면 집으로 못돌아와요ㅠㅠ 나가지 마세요 폭설인데도 회사에 나오라고 하는 회사면 거기는 나쁜회사").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.snow).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -465,7 +461,7 @@ public class MainFragment extends Fragment
                         break;
                     case 611:
                         tvStatus.setText("	진눈깨비	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("비와 눈이 섞여서 내리고 있어요").setDescription("외출 하실 때 우산 잊지 마세요!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_sleet).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -501,7 +497,7 @@ public class MainFragment extends Fragment
                         break;
                     case 701:
                         tvStatus.setText("옅은 안개");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("옅은 안개가 끼었어요").setDescription("옅다구 얕보다가 큰 코 다쳐요ㅠ 안전운전 하셔야 합니다!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mist).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -527,7 +523,7 @@ public class MainFragment extends Fragment
                         break;
                     case 731:
                         tvStatus.setText("모래 먼지");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("으악 모래먼지 낀 날씨에요").setDescription("마스크 꼭 착용하고 외출하셔야 해요!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -545,7 +541,7 @@ public class MainFragment extends Fragment
                         break;
                     case 741:
                         tvStatus.setText("안개");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("안개 낀 날이에요").setDescription("안개 낀 날에는 운전에 더 조심해야 하는거 아시죠? 안전운전 하세요~~!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.fog).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -567,7 +563,7 @@ public class MainFragment extends Fragment
                         break;
                     case 761:
                         tvStatus.setText("	먼지	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("먼지...싫어").setDescription("마스크 필수 착용입니다!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.mask).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -597,7 +593,7 @@ public class MainFragment extends Fragment
                         break;
                     case 800:
                         tvStatus.setText("맑은 하늘");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("구름 한 점 없는 맑은 날이에요").setDescription("오늘 같은 날씨에는 가까운 공원에 가서 산책하는 것이 어떠세요?").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_clear).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -619,7 +615,7 @@ public class MainFragment extends Fragment
                         break;
                     case 802:
                         tvStatus.setText("	드문드문 구름이 낀 하늘	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 구름이 드문드문 떠 있어요").setDescription("드문드문 떠 있는 구름 사이로 달이 숨을 수도..!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_partial_cloud).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -641,7 +637,7 @@ public class MainFragment extends Fragment
 
                     case 804:
                         tvStatus.setText("	구름으로 뒤덮인 흐린 하늘	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘 하늘은 흐려요").setDescription("하늘이 흐리다고 맘까지 울적해지면 안돼안돼~~").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -665,7 +661,7 @@ public class MainFragment extends Fragment
                         break;
                     case 903:
                         tvStatus.setText("	한랭	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("으아 추워").setDescription("외투 두텁게 입고 외출하세요 안그럼 감기 걸린다요").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.overcast).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -683,7 +679,7 @@ public class MainFragment extends Fragment
                         break;
                     case 904:
                         tvStatus.setText("고온");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("아우 더워더워").setDescription("오늘 기온이 높아요! 저녁이라고 선크림 안 바르시면 피부 노화가 2배~! 듬뿍듬뿍 바르고 손풍기도 챙겨요 ㅎㅎ").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.hot).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -701,7 +697,7 @@ public class MainFragment extends Fragment
                         break;
                     case 905:
                         tvStatus.setText("바람이 많이 불어요");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("바람이 많이 부는 날씨에요").setDescription("날아가지 않게 조심하세요~!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.wind).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -719,7 +715,7 @@ public class MainFragment extends Fragment
                         break;
                     case 906:
                         tvStatus.setText("	우박	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("우박 조심!").setDescription("우산을 뚫을 수도 있으니 머리조심하세요..!!!").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.night_hail).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -743,7 +739,7 @@ public class MainFragment extends Fragment
                         break;
                     case 953:
                         tvStatus.setText("	부드러운 바람	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("부드러운 바람이 불고 있어요").setDescription("이런 날에는 한강가서 치맥><").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.wind).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -766,7 +762,7 @@ public class MainFragment extends Fragment
                         break;
                     case 956:
                         tvStatus.setText("	센 바람	");
-                        if(getTimes>=18) {
+                        if (getTimes >= 18) {
                             new MaterialStyledDialog.Builder(getActivity()).setTitle("오늘은 바람 세기가 강해요").setDescription("공들인 머리가 망가질수도 있으니 조심하세요").setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.cloud_wind).onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -810,7 +806,6 @@ public class MainFragment extends Fragment
 
         }
     }
-
 
     /**
      * GPS***************************
@@ -928,7 +923,6 @@ public class MainFragment extends Fragment
         }
 
 
-
         if (addresses == null || addresses.size() == 0) {
             Toast.makeText(getActivity(), "주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
             return "주소를 찾을 수 없습니다.";
@@ -969,7 +963,6 @@ public class MainFragment extends Fragment
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -991,7 +984,6 @@ public class MainFragment extends Fragment
                 break;
         }
     }
-
 
 
     /**
@@ -1035,14 +1027,14 @@ public class MainFragment extends Fragment
         final IntentFilter filter = new IntentFilter(LoadAlarmsService.ACTION_COMPLETE);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, filter);
         LoadAlarmsService.launchLoadAlarmsService(getContext());
-        Log.d(TAG,"onStart");
+        Log.d(TAG, "onStart");
     }
 
     @Override
     public void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mReceiver);
-        Log.d(TAG,"onStop");
+        Log.d(TAG, "onStop");
     }
 
     @Override
@@ -1058,7 +1050,7 @@ public class MainFragment extends Fragment
                 Date today = new Date();
                 final Intent i = buildCalendarActivityIntent(getContext(), today);
                 startActivity(i);
-                Log.d(TAG,"onCreateView, FloatingActionButton");
+                Log.d(TAG, "onCreateView, FloatingActionButton");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -1066,10 +1058,10 @@ public class MainFragment extends Fragment
 
     @Override
     public void onAlarmsLoaded(ArrayList<Alarm> alarms) {
-        for(Alarm list : alarms){
-            Log.d(getClass().getSimpleName(),list.toString());
+        for (Alarm list : alarms) {
+            Log.d(getClass().getSimpleName(), list.toString());
         }
         mAdapter.setAlarms(alarms);
-        Log.d(TAG,"onAlarmsLoaded");
+        Log.d(TAG, "onAlarmsLoaded");
     }
 }
