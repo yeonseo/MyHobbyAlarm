@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
@@ -16,12 +16,12 @@
             android:gravity="center"
             android:padding="@dimen/md_button_padding_horizontal"
             android:text="10일"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/jr_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/md_button_padding_horizontal"
             android:background="@color/softRed"

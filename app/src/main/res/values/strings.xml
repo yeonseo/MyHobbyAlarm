@@ -197,4 +197,10 @@
     <!-- Notification -->
     <string name="channel_name">Simple Alarms</string>
     <string name="titleColor">Color</string>
+    <string name="edit_journal">Edit Journal</string>
+    <string name="add_journal">Add Journal</string>
+    <string name="add_contetn_hint">오늘의 느낀점을 기록해 보세요 \n \n </string>
+    <string name="content">Content</string>
+    <string name="day">Day</string>
+    <string name="preview">Preview</string>
 </resources>
