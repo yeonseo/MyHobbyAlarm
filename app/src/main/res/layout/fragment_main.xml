@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
+    android:orientation="vertical"
     sothree:umanoDragView="@+id/dragView"
     sothree:umanoFadeColor="@android:color/transparent"
     sothree:umanoOverlay="true"
     sothree:umanoPanelHeight="@dimen/weather_margin_default"
     sothree:umanoParallaxOffset="100dp"
     sothree:umanoScrollableView="@id/recycler"
-    sothree:umanoShadowHeight="4dp"
-    android:orientation="vertical">
+    sothree:umanoShadowHeight="4dp">
 
     //recyclerBox 뷰 부분
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -43,7 +43,6 @@
             android:layout_marginBottom="@dimen/fab_margin_default"
             sothree:fabSize="auto"
             sothree:srcCompat="@drawable/ic_alarm_white_24dp" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
@@ -63,14 +62,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:background="@drawable/weather_bg_gradient"
             android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgDragUp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:src="@drawable/up2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,8 +143,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="업데이트날짜"
                         android:layout_marginLeft="10dp"
+                        android:text="업데이트날짜"
                         android:textSize="10sp" />
 
                     <ImageButton

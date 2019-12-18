@@ -86,7 +86,7 @@ public class MainFragment extends Fragment
     ImageView weatherImage;
     ImageButton imgBtnRefresh;
     int getTimes;
-    int flag;
+    ImageView imgDragUp;
 
 
     //Gps
@@ -152,6 +152,7 @@ public class MainFragment extends Fragment
         weatherImage = v.findViewById(R.id.weatherImage);
         tvDay = v.findViewById(R.id.tvDay);
         imgBtnRefresh = v.findViewById(R.id.imgBtnRefresh);
+        imgDragUp=v.findViewById(R.id.imgDragUp);
 
         //슬라이딩업패널레이아웃
         slidingLayout = v.findViewById(R.id.slidingLayout);
@@ -215,11 +216,14 @@ public class MainFragment extends Fragment
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
         String newStateValue = "EXPANDED";
+//        imgDragUp.setVisibility(imgDragUp.getVisibility()==panel.VISIBLE?panel.GONE:panel.INVISIBLE);
         if (String.valueOf(newState) == newStateValue) {
-            flag=0;
+
             refreshGPSWeather();
+            imgDragUp.setVisibility(panel.GONE);
+
+            Log.d("슬라이드", "onPanelStateChanged" + newState);
         }
-        Log.d("슬라이드", "onPanelStateChanged" + newState);
     }
 
 
@@ -535,7 +539,21 @@ public class MainFragment extends Fragment
                         break;
                     case 721:
                         tvStatus.setText("실안개	");
+                        if (getTimes >= 18) {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("실안개 낀 날씨에요").setDescription("안개 낀 날에는 운전에 더 조심해야 하는거 아시죠? 안전운전 하세요~~!").withDialogAnimation(true).setPositiveText("닫기").setHeaderColor(R.color.black).setIcon(R.drawable.fog).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                                }
+                            }).show();
+                        } else {
+                            new MaterialStyledDialog.Builder(getActivity()).setTitle("실안개 낀 날씨에요").setDescription("안개 낀 날에는 운전에 더 조심해야 하는거 아시죠? 안전운전 하세요~~!").withDialogAnimation(true).setPositiveText("닫기").setHeaderColor(R.color.slightlyCyan).setIcon(R.drawable.fog).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            }).show();
+                        }
                         break;
                     case 731:
                         tvStatus.setText("모래 먼지");
