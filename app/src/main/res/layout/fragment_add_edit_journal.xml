@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,13 +16,30 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:text="@string/time"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Time" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                android:text="@string/day"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/edit_journal_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="2019 12 18"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -29,22 +47,21 @@
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
             android:background="@drawable/divider" />
 
-        <TimePicker
-            android:id="@+id/edit_alarm_time_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:timePickerMode="spinner"
-            tools:targetApi="lollipop" />
+        <!--        <TimePicker-->
+        <!--            android:id="@+id/edit_alarm_time_picker"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+        <!--            android:timePickerMode="spinner"-->
+        <!--            tools:targetApi="lollipop" />-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:text="@string/label"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Label" />
+            android:text="@string/content"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <View
             android:layout_width="match_parent"
@@ -53,137 +70,14 @@
             android:background="@drawable/divider" />
 
         <EditText
-            android:id="@+id/edit_alarm_label"
+            android:id="@+id/edit_journal_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:hint="@string/add_label_hint"
-            android:inputType="textCapWords"
-            android:maxLength="15"
+            android:hint="@string/add_contetn_hint"
+            android:lines="3"
             android:textColor="@color/secondary_text"
             android:textStyle="italic" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:text="@string/days"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Days" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:background="@drawable/divider" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/edit_alarm_mon"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:layout_weight="1"
-                android:background="@drawable/ic_check_mon"
-                android:button="@drawable/ic_check_day_50dp"
-                android:checked="false"
-                android:gravity="center" />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_tues"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:layout_weight="1"
-                android:background="@drawable/ic_check_tue"
-                android:button="@drawable/ic_check_day_50dp"
-                android:checked="false"
-                android:gravity="center" />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_wed"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:layout_weight="1"
-                android:background="@drawable/ic_check_wed"
-                android:button="@drawable/ic_check_day_50dp"
-                android:checked="false"
-                android:gravity="center" />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_thurs"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:layout_weight="1"
-                android:background="@drawable/ic_check_thu"
-                android:button="@drawable/ic_check_day_50dp"
-                android:checked="false"
-                android:gravity="center" />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_fri"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:background="@drawable/ic_check_fri"
-                android:button="@drawable/ic_check_day_50dp"
-                android:checked="false"
-                android:gravity="center"/>
-
-            <CheckBox
-                android:id="@+id/edit_alarm_sat"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:background="@drawable/ic_check_sat"
-                android:backgroundTint="@color/blue"
-                android:button="@drawable/ic_check_day_50dp"
-                android:buttonTint="@color/blue"
-                android:checked="false"
-                android:gravity="center" />
-
-            <CheckBox
-                android:id="@+id/edit_alarm_sun"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/list_padding_vertical_small"
-                android:background="@drawable/ic_check_sun"
-                android:backgroundTint="@color/softRed"
-                android:button="@drawable/ic_check_day_50dp"
-                android:buttonTint="@color/softRed"
-                android:checked="false"
-                android:gravity="center" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/list_padding_vertical_small"
-                android:layout_weight="1"
-                android:text="@string/snooze"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Switch
-                android:id="@+id/edit_alarm_snooze"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp" />
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -326,6 +220,67 @@
 
         </HorizontalScrollView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/preview"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <ImageButton
+                android:id="@+id/edit_journal_ivbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_fiber_manual_record_50dp"
+                android:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_refresh_20dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/list_padding_vertical_small"
+            android:background="@drawable/divider" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edit_journal_pv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/md_button_padding_horizontal"
+                android:text="10일"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/edit_journal_pv_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/md_button_padding_horizontal"
+                android:background="@color/softRed"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="내일 밤이 남은 까닭이요 아직 나의 청춘이 다 하지 않은 까닭입니다. 별 하나에 추억과 별 하나에 사랑과 별 하나에 쓸쓸함과 별 하나에 동경과"
+                android:textSize="15sp"
+                android:typeface="serif" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myhobbyalarm.R;
 
+import static com.example.myhobbyalarm.ui.AddEditJournalActivity.ADD_JOURNAL;
+import static com.example.myhobbyalarm.ui.AddEditJournalActivity.buildAddEditJournalActivityIntent;
+
 public final class AlarmLandingPageFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
@@ -25,6 +28,7 @@ public final class AlarmLandingPageFragment extends Fragment implements View.OnC
         final Button dismiss = (Button) v.findViewById(R.id.dismiss_btn);
 
         launchMainActivityBtn.setOnClickListener(this);
+        calendar_btn.setOnClickListener(this);
         dismiss.setOnClickListener(this);
 
         return v;
@@ -41,7 +45,9 @@ public final class AlarmLandingPageFragment extends Fragment implements View.OnC
                 break;
             //기록하기로 수정 예정
             case R.id.calendar_btn:
-                startActivity(new Intent(getContext(), MainActivity.class));
+                final Intent i = buildAddEditJournalActivityIntent(getContext(), ADD_JOURNAL);
+                startActivity(i);
+//                startActivity(new Intent(getContext(), AddEditJournalActivity.class));
                 getActivity().finish();
                 break;
                 //취소
