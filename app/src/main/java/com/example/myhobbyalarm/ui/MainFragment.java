@@ -1207,18 +1207,12 @@ public class MainFragment extends Fragment
     }
     @Override
     public void onAlarmsLoaded(ArrayList<Alarm> alarms) {
-<<<<<<< HEAD
         allAlarms.removeAll(allAlarms);
         for(Alarm list : alarms){
             allAlarms.add(list);
             Log.d(getClass().getSimpleName(),list.toString());
-=======
-        for (Alarm list : alarms) {
-            Log.d(getClass().getSimpleName(), list.toString());
->>>>>>> 31618bc5172a13a7f318ded4a450c6a482513d21
         }
         mAdapter.setAlarms(alarms);
         Log.d(TAG, "onAlarmsLoaded");
     }
-
 }
