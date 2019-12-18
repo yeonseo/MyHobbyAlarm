@@ -235,11 +235,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageButton
+                android:id="@+id/edit_journal_ivbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:src="@drawable/ic_repeat_black_24dp"
-                android:tint="@color/mdtp_white" />
+                android:background="@drawable/ic_fiber_manual_record_50dp"
+                android:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_refresh_20dp"/>
 
         </LinearLayout>
 
@@ -256,18 +257,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/jr_day"
+                android:id="@+id/edit_journal_pv_day"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/md_button_padding_horizontal"
                 android:text="10일"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/jr_content"
-                android:layout_width="wrap_content"
+                android:id="@+id/edit_journal_pv_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/md_button_padding_horizontal"
                 android:background="@color/softRed"

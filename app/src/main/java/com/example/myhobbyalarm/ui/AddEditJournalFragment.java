@@ -1,6 +1,10 @@
 package com.example.myhobbyalarm.ui;
 
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -20,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myhobbyalarm.R;
@@ -36,10 +42,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.SimpleFormatter;
 
-public final class AddEditJournalFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
+public final class AddEditJournalFragment extends Fragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    private TextView mDay;
+    private TextView mDay,pv_day, pv_content;
     private EditText mContent;
+    private ImageButton pvBtn;
     private String colorTitleSet;
     private static final int[] colorTitle_Id = {
             R.id.edit_alarm_color_softRed,
@@ -56,7 +63,8 @@ public final class AddEditJournalFragment extends Fragment implements RadioGroup
     private RadioGroup edit_alarm_rdo_g;
     private RadioButton[] colorTitle = new RadioButton[colorTitle_Id.length];
 
-    private String dateText;
+    private Journal journal;
+    private String dateJDB = "";
 
     public static Fragment newInstance(Journal journal) {
         Bundle args = new Bundle();
@@ -72,31 +80,43 @@ public final class AddEditJournalFragment extends Fragment implements RadioGroup
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_add_edit_journal, container, false);
 
+        //타이틀 바에 옵션나타내기
         setHasOptionsMenu(true);
 
-        final Journal journal = getJournal();
+        //선택한 Journal 가져오기
+        journal = getJournal();
 
-//        Date day = Calendar.getInstance().getTime();
-//        dateText = new SimpleDateFormat("yyyy년,MM월,dd일,EE요일", Locale.getDefault()).format(day);
-
-        dateText = journal.getDay();
         mDay = v.findViewById(R.id.edit_journal_day);
         mContent = v.findViewById(R.id.edit_journal_content);
+        pv_day = v.findViewById(R.id.edit_journal_pv_day);
+        pv_content = v.findViewById(R.id.edit_journal_pv_content);
         edit_alarm_rdo_g = v.findViewById(R.id.edit_alarm_rdo_g);
         for (int i = 0; i < colorTitle_Id.length; i++) {
             colorTitle[i] = (RadioButton) v.findViewById(colorTitle_Id[i]);
         }
+        pvBtn = v.findViewById(R.id.edit_journal_ivbtn);
 
-        String[] dateSet = dateText.split(",");
-        String dateSetSet = "";
+
+        //Journal Date에서 가져온 날짜 셋팅
+        String[] dateSet = journal.getDay().split(",");
+
         for(int i = 0 ; i < dateSet.length ; i++){
-            dateSetSet = dateSetSet+" "+dateSet[i];
+            dateJDB = dateJDB+" "+dateSet[i];
         }
+        mDay.setText(dateJDB);
 
-        mDay.setText(dateSetSet);
-        edit_alarm_rdo_g.setOnCheckedChangeListener(this);
+        //저장된 일기 셋팅하기
+
+        mContent.setText(journal.getContent());
+        //저장된 타이틀 색을 불러와 셋팅하기
         setDayCheckColorTitle(journal);
 
+        //라디오 그룹 체크에 따른 타이틀 색 저장하기 위해 변수에 색 이름 담기
+        edit_alarm_rdo_g.setOnCheckedChangeListener(this);
+
+        onClick(pvBtn);
+
+        pvBtn.setOnClickListener(this);
         return v;
     }
 
@@ -231,44 +251,83 @@ public final class AddEditJournalFragment extends Fragment implements RadioGroup
     }
 
     private void setDayCheckColorTitle(Journal journal) {
+        int colorSet = R.color.softRed;
         if (journal.getColorTitle() == null) {
             journal.setColorTitle("softRed");
         }
         switch (journal.getColorTitle()) {
             case "lightOrange":
                 colorTitle[1].setChecked(true);
+                colorTitleSet = "lightOrange";
+                colorSet = R.color.lightOrange;
                 break;
             case "softOrange":
                 colorTitle[2].setChecked(true);
+                colorTitleSet = "softOrange";
+                colorSet = R.color.softOrange;
                 break;
             case "slightlyCyan":
                 colorTitle[3].setChecked(true);
+                colorTitleSet = "slightlyCyan";
+                colorSet = R.color.slightlyCyan;
                 break;
             case "slightlyGreen":
                 colorTitle[4].setChecked(true);
+                colorTitleSet = "slightlyGreen";
+                colorSet = R.color.slightlyGreen;
                 break;
             case "green":
                 colorTitle[5].setChecked(true);
+                colorTitleSet = "green";
+                colorSet = R.color.green;
                 break;
             case "strongCyan":
                 colorTitle[6].setChecked(true);
+                colorTitleSet = "strongCyan";
+                colorSet = R.color.strongCyan;
                 break;
             case "blue":
                 colorTitle[7].setChecked(true);
+                colorTitleSet = "blue";
+                colorSet = R.color.blue;
                 break;
             case "moderateBlue":
                 colorTitle[8].setChecked(true);
+                colorTitleSet = "moderateBlue";
+                colorSet = R.color.moderateBlue;
                 break;
             case "moderateViolet":
                 colorTitle[9].setChecked(true);
+                colorTitleSet = "moderateViolet";
+                colorSet = R.color.moderateViolet;
                 break;
             case "black":
                 colorTitle[10].setChecked(true);
+                colorTitleSet = "black";
+                colorSet = R.color.black;
                 break;
             case "softRed":
             default:
                 colorTitle[0].setChecked(true);
+                colorTitleSet = "softRed";
+                colorSet = R.color.softRed;
                 break;
         }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            ColorStateList stateList = ColorStateList.valueOf(getContext().getResources().getColor(colorSet));
+            pv_content.setBackgroundTintList(stateList);
+        } else {
+            pv_content.getBackground().getCurrent().setColorFilter(
+                    new PorterDuffColorFilter(getContext().getResources().getColor(colorSet), PorterDuff.Mode.MULTIPLY));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        pv_day.setText(dateJDB);
+        pv_content.setText(mContent.getText().toString());
+        journal.setColorTitle(colorTitleSet);
+        setDayCheckColorTitle(journal);
     }
 }

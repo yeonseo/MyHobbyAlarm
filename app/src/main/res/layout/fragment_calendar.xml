@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:scrollbarStyle="outsideOverlay"
     app:umanoDragView="@+id/dragView"
     app:umanoFadeColor="@android:color/transparent"
     app:umanoOverlay="true"
     app:umanoScrollableView="@id/recycler"
-    app:umanoShadowHeight="4dp"
-    android:scrollbarStyle="outsideOverlay">
+    app:umanoShadowHeight="4dp">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,20 +23,38 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <TextView
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/list_padding_vertical_small"
-            android:text="@string/time"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Time" />
+            android:layout_height="wrap_content">
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            app:mcv_selectionColor="#a9dbf0cb"
-            app:mcv_showOtherDates="defaults" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/fab_margin_default"
+                android:layout_marginRight="@dimen/fab_margin_default"
+                android:layout_marginBottom="@dimen/fab_margin_default"
+                app:fabSize="auto"
+                app:srcCompat="@drawable/ic_note_add_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_padding_vertical_small"
+                android:text="@string/day"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                app:mcv_selectionColor="#a9dbf0cb"
+                app:mcv_showOtherDates="defaults" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
         <EditText
             android:id="@+id/edtContent"
@@ -53,16 +73,6 @@
             android:gravity="center"
             android:text="@string/empty_view_text" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/fab_margin_default"
-            android:layout_marginRight="@dimen/fab_margin_default"
-            android:layout_marginBottom="@dimen/fab_margin_default"
-            app:fabSize="auto"
-            app:srcCompat="@drawable/ic_note_add_24dp" />
 
     </LinearLayout>
 
