@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:text="클릭해주세염"
+                        android:text="Touch it!"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -144,7 +144,7 @@
                         android:id="@+id/imgBtnRefresh"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@mipmap/refresh" />
+                        android:background="@drawable/refresh" />
 
                 </LinearLayout>
             </LinearLayout>
