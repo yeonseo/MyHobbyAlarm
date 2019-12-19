@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.myhobbyalarm.ui.HomeWidgetListviewProvider.EXTRA_ITEM_POSITION;
+import static com.example.myhobbyalarm.ui.HomeWidgetListviewProvider.timeTextSet;
 
 /**
  * 런처 앱에 리스트뷰의 어뎁터 역할을 해주는 클래스
@@ -56,6 +57,7 @@ class HomeWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
         for (Alarm alarm : alarmsDataList){
             alarms.add(alarm);
         }
+        timeTextSet();
     }
 
     /**

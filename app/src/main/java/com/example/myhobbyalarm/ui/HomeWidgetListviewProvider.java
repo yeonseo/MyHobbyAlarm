@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -38,7 +39,8 @@ public class HomeWidgetListviewProvider extends AppWidgetProvider {
     public ArrayList<Alarm> alarms= new ArrayList<Alarm>();
     List<Alarm> alarmsDataList;
     Context context;
-
+    static RemoteViews views;
+    static int[] sappWidgetIds;
     /**
      * 위젯의 크기 및 옵션이 변경될 때마다 호출되는 함수
      */
@@ -60,6 +62,7 @@ public class HomeWidgetListviewProvider extends AppWidgetProvider {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        sappWidgetIds = appWidgetIds;
         staticAppWidgetManager = appWidgetManager;
         staticAppWidgetIds = appWidgetIds;
         for (int appWidgetId : appWidgetIds) {
@@ -70,14 +73,16 @@ public class HomeWidgetListviewProvider extends AppWidgetProvider {
 
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.list_view_widget);
+            views = new RemoteViews(context.getPackageName(), R.layout.list_view_widget);
             views.setRemoteAdapter(R.id.widget_listview, serviceIntent);
             //맨 위 텍스트 뷰에 현재 시간 출력
             Calendar mCalendar = Calendar.getInstance();
             SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",
                     Locale.KOREA);
+            Log.d("ㅁㅁ",mFormat.format(mCalendar.getTime()));
             views.setTextViewText(R.id.widget_test_textview,
                     mFormat.format(mCalendar.getTime()));
+
             ClickEventOpenFragment(views, context);
             Intent clickIntent = new Intent(context, HomeWidgetListviewProvider.class);
             clickIntent.setAction(ACTION_TOAST);
@@ -89,6 +94,20 @@ public class HomeWidgetListviewProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
     }
+    /**
+     *현재 시간 셋팅
+     */
+    public static void timeTextSet() {
+        Calendar mCalendar = Calendar.getInstance();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",
+                Locale.KOREA);
+        Log.d("ㅁㅁ",mFormat.format(mCalendar.getTime()));
+        views.setTextViewText(R.id.widget_test_textview,
+                mFormat.format(mCalendar.getTime()));
+
+        staticAppWidgetManager.updateAppWidget(sappWidgetIds, views);
+    }
+
     /**
      *사이즈 변경을 감지하는 함수
      */
@@ -134,13 +153,14 @@ public class HomeWidgetListviewProvider extends AppWidgetProvider {
             launchEditAlarmIntent.addFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(context,launchEditAlarmIntent,null);
         }
-
         super.onReceive(context, intent);
     }
     /**
      *추가버튼 클릭시 이벤트
      */
-    public static void ClickEventOpenFragment(RemoteViews views, Context context) {
+    public static void ClickEventOpenFragment(RemoteViews view, Context context) {
+        views=view;
+        timeTextSet();
         final Intent i = new Intent(context, AddEditAlarmActivity.class);
         i.putExtra(MODE_EXTRA, ADD_ALARM);
         i.addFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
