@@ -214,7 +214,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_refresh_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_search_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -225,7 +225,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_refresh_20dp" />
+                            <entry key="outputName" value="ic_search_36dp" />
                             <entry key="sourceFile" value="$APPLICATION_HOME_DIR$/bin/C:\Users\hadon" />
                           </map>
                         </option>

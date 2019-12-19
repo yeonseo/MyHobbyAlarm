@@ -20,6 +20,8 @@
     <color name="moderateViolet">#683fb5</color>
     <color name="black">#202020</color>
 
+    <color name="white">#ffffff</color>
+
     <color name="divider">#BDBDBD</color>
     <color name="colorBackground">#00FFFFFF</color>
 </resources>
