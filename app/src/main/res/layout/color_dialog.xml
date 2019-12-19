@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/fab_margin_default"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/list_padding_vertical_small"
+        android:layout_margin="@dimen/fab_margin_default"
         android:text="@string/titleColor"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -23,6 +22,8 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/fab_margin_default"
+        android:layout_marginLeft="@dimen/fab_margin_default"
         android:scrollbars="horizontal">
 
         <LinearLayout
