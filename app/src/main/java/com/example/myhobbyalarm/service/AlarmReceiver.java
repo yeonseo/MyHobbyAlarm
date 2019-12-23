@@ -89,7 +89,9 @@ public final class AlarmReceiver extends BroadcastReceiver {
 
     //ADD VALUE
     private void setSnoozeAlarm(Context context, Alarm alarm) {
-        long snoozeTime = 60*1000L;
+        long snoozeTime = 60*1000L; //1분후에 다시 알림으로 설정함
+
+        //알람이 울리는 시간에 오차가 있어, 
         if(!alarm.isSnooze()|alarm.getTime()+snoozeTime+2000L<System.currentTimeMillis()){
             Log.d(TAG, "alarm snooze"+alarm.isSnooze()+", "+alarm.getTime()+snoozeTime);
         }else {

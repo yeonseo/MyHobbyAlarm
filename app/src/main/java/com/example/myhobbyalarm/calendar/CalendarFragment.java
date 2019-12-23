@@ -112,8 +112,11 @@ public class CalendarFragment extends Fragment implements LoadJournalsReceiver.O
                 new SundayDecorator(),
                 new SaturdayDecorator(),
                 oneDayDecorator);
-        final Journal journal = getJournal();
 
+        /**
+         * 일지가 기록된 날을 달력에 표시하고 싶다면 이 부분을 수정해서 사용하면 됨
+         * */
+        final Journal journal = getJournal();
         eventDrow(journalList);
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {

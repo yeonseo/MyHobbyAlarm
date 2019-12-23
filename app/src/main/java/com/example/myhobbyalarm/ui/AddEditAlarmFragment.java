@@ -183,7 +183,9 @@ public final class AddEditAlarmFragment extends Fragment implements RadioGroup.O
     }
 
     private void save() {
-        // donuni widget listView 새로고침!
+        /**
+         *홈 위젯 새로고침에 필요
+         */
         if(HomeWidgetListviewProvider.staticAppWidgetIds == null){
 
         }else{
