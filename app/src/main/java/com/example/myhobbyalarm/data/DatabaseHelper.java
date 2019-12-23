@@ -18,6 +18,9 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "alarms";
 
+    /**
+     * Alarm 기본 정보
+     * */
     public static final String _ID = "_id";
     public static final String COL_TIME = "time";
     public static final String COL_LABEL = "label";
@@ -84,6 +87,11 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
         throw new UnsupportedOperationException("This shouldn't happen yet!");
     }
 
+
+    /**
+     * 알람을 추가하는 행위를 할 시 불러지는 함수
+     * 새로운 알람을 추가해서 아래의 addAlarm(Alarm alarm)를 호출한다
+     * */
     public long addAlarm() {
         Log.i(getClass().getSimpleName(), "addAlarm()...");
         return addAlarm(new Alarm());
