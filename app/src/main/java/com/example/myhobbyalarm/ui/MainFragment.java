@@ -92,14 +92,14 @@ public class MainFragment extends Fragment
     private SlidingUpPanelLayout slidingLayout;
 
     //날씨 관련 변수
-    TextView tvUpdated, tvStatus, tvTemp, tvTempMin, tvTempMax;
+    TextView tvUpdated, tvStatus, tvTemp, tvTempMin, tvTempMax; //업데이트 시간, 날씨상태, 기온, 최저온도, 최고온도 변수
     String API = "b298b9fd9ad4b11c145505d66138d5a9"; //openweatherMap에서 받은 api이다.
     TextView tvDay; //달, 일, 요일 변수
-    static double LON, LAT;
-    ImageView weatherImage;
-    ImageButton imgBtnRefresh;
-    int getTimes;
-    ImageView imgDragUp;
+    static double LON, LAT; //위도 경도를 담을 변수
+    ImageView weatherImage; //OpenWeatherMap에서 가져오는 날씨 이미지 담을 변수
+    ImageButton imgBtnRefresh; //업데이트 새로고침 버튼 변수
+    int getTimes; //18시 이후일 때 배경색/이미지 변경을 위한 변수
+    ImageView imgDragUp; //드래그 표시 이미지 변수
 
 
     //Gps
@@ -118,6 +118,7 @@ public class MainFragment extends Fragment
         mReceiver = new LoadAlarmsReceiver(this);
         Log.d(TAG, "onCreate");
 
+        //현재 시간 체크
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");
@@ -173,8 +174,7 @@ public class MainFragment extends Fragment
         currentMonth();
 
 
-        /**Gps onCreate************************
-         */
+        //Gps
         if (!checkLocationServicesStatus()) {
 
             showDialogForLocationServiceSetting();
@@ -320,6 +320,7 @@ public class MainFragment extends Fragment
                 Glide.with(getActivity()).load(iconUrl).into(weatherImage);
 
 
+                //날씨 아이디 값에 맞는 MaterialStyledDialog 출력 및 배경 색, 아이콘 설정
                 switch (id) {
                     case 200:
                         tvStatus.setText("가벼운 비를 동반한 뇌우");
@@ -1593,13 +1594,10 @@ public class MainFragment extends Fragment
         }
     }
 
-    /**
-     * GPS***************************
+    /**GPS************************
      */
 
-    /*
-     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
-     */
+    //ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 받는다.
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
@@ -1608,12 +1606,9 @@ public class MainFragment extends Fragment
         if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
-
             boolean check_result = true;
 
-
-            // 모든 퍼미션을 허용했는지 체크합니다.
-
+            // 모든 퍼미션을 허용했는지 체크
             for (int result : grandResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     check_result = false;
@@ -1621,23 +1616,17 @@ public class MainFragment extends Fragment
                 }
             }
 
-
             if (check_result) {
-                //위치 값을 가져올 수 있음
+                //위치 값을 가져올 수 있다면
             } else {
-                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-
+                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료.
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[1])) {
 
                     Toast.makeText(getActivity(), "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
 //                    finish();
-
-
                 } else {
-
                     Toast.makeText(getActivity(), "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -1647,38 +1636,32 @@ public class MainFragment extends Fragment
 
     void checkRunTimePermission() {
 
-        //런타임 퍼미션 처리
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
+        // 위치 퍼미션을 가지고 있는지 체크.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-            // 2. 이미 퍼미션을 가지고 있다면
-            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
+            // 이미 퍼미션을 가지고 있다면 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식한다.
+            // 위치 값을 가져올 수 있음
 
+        } else {  //퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다.
 
-            // 3.  위치 값을 가져올 수 있음
-
-
-        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
-            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
+            // 사용자가 퍼미션 거부를 한 적이 있는 경우
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[0])) {
 
-                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
+                // 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(getActivity(), "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-                // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                // 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
 
 
             } else {
-                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
+                // 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
@@ -1699,7 +1682,7 @@ public class MainFragment extends Fragment
             //현재 위치 주소를 가져온다.
             addresses = geocoder.getFromLocation(latitude, longitude, 7);
         } catch (IOException ioException) {
-            //네트워크 문제
+            //네트워크 문제 발생 시
             Toast.makeText(getActivity(), "위치 서비스 사용불가", Toast.LENGTH_SHORT).show();
             return "네트워크 문제로 주소를 불러올 수 없습니다.";
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -1708,16 +1691,13 @@ public class MainFragment extends Fragment
 
         }
 
-
         if (addresses == null || addresses.size() == 0) {
             Toast.makeText(getActivity(), "주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
             return "주소를 찾을 수 없습니다.";
-
         }
 
         Address address = addresses.get(0);
-        return address.getAddressLine(0).toString() + "\n";
-
+        return address.getAddressLine(0) + "\n";
     }
 
 
@@ -1757,7 +1737,7 @@ public class MainFragment extends Fragment
 
             case GPS_ENABLE_REQUEST_CODE:
 
-                //사용자가 GPS 활성 시켰는지 검사
+                //사용자가 GPS 활성 시켰는지 검사한다.
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
@@ -1766,11 +1746,9 @@ public class MainFragment extends Fragment
                         return;
                     }
                 }
-
                 break;
         }
     }
-
 
     /**
      * GPS >> checkLocationServicesStatus()
@@ -1793,6 +1771,7 @@ public class MainFragment extends Fragment
     }
 
     //달,월,일 가져오는 함수
+    //SlideUpPanel Layout에 XXXX년 XX월 XX일이 표시된다.
     private void currentMonth() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat sDay = new SimpleDateFormat("EE", Locale.getDefault());
@@ -1804,7 +1783,6 @@ public class MainFragment extends Fragment
         String day = sDay.format(currentTime);
 
         tvDay.setText(month + "월 " + date + "일 " + day + "요일");
-
     }
 
     @Override

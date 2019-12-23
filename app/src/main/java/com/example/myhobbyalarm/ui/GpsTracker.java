@@ -15,7 +15,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-//현재 위취를 찾아 주소로 변환 처리하는 클래스이다.
+//현재 위치를 찾아 주소로 변환 처리하는 클래스
 public class GpsTracker extends Service implements LocationListener {
 
     private final Context mContext;
@@ -23,7 +23,6 @@ public class GpsTracker extends Service implements LocationListener {
     double latitude;
     double longitude;
 
-    //언제 gps값을 업데이트 할 지 결정할 수 있다.
     //거리가 변경되었을 때 위치정보를 받을 수있다.
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     //일정 시간이 지나면 위치정보를 받을 수 있다.
@@ -46,10 +45,10 @@ public class GpsTracker extends Service implements LocationListener {
     public Location getLocation() {
         try {
 
-            //위치 관리자 객체 참조
+            //locationManager 객체 참조
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
-            //GPS프로바이터와 네트워크 프로바이더 사용가능 여부
+            //GPS프로바이더와 네트워크 프로바이더 사용가능 여부 변수 선언
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
@@ -57,24 +56,31 @@ public class GpsTracker extends Service implements LocationListener {
 
             } else {
 
+
+                /**
+                 * 안드로이드 6.0부터는 개인정보에 미칠 수 있는 장치들이나 자료등의 접근을 위해서 실시간으로 권한을 획득해야 한다.
+                 * ContextCompat.checkSelfPermission으로 권한 설정을 해야한다.
+                 * 권한 획득 후 PackageManager.PERMISSION_GRANTED를 받환받아야 한다.
+                 */
+
+                //GPS와 네트워크로부터 권한을 받기 위한 변수 선언
                 int hasFineLocationPermission = ContextCompat.checkSelfPermission(mContext,
                         Manifest.permission.ACCESS_FINE_LOCATION);
                 int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(mContext,
                         Manifest.permission.ACCESS_COARSE_LOCATION);
 
 
+                //PackageManager.PERMISSION_GRANTED 앱이 필요한 실행을 할 수 있도록 도와준다.
                 if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                         hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
 
                 } else
                     return null;
 
 
+                //네트워크 프로바이더
                 if (isNetworkEnabled) {
-
-
-                    //위치 정보를 원하는 시간, 거리마다 갱신해준다.
+                    //위치 정보를 원하는 시간과 거리 조건을 만족했을 때 실행해준다.
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
                     if (locationManager != null)
@@ -83,27 +89,29 @@ public class GpsTracker extends Service implements LocationListener {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location != null)
                         {
+                            //위도,경도 값을 가져온다.
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
                         }
 
-                        /**
-                         * 어플을 완전히 죽인 후에 들어와도 최근 위치 정보를 가져올 수 있도록 구현할라고....하는데 그런데...굳이 그럴필요가 있나
-                         */
                     }
                 }
 
 
+                //GPS 프로바이더
                 if (isGPSEnabled)
                 {
                     if (location == null)
                     {
+                        //위치 정보를 원하는 시간과 거리 조건을 만족했을 때 실행해준다.
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
                         if (locationManager != null)
                         {
+                            //가장 최근의 위치정보를 가져온다.
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null)
                             {
+                                //위도,경도 값을 가져온다.
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
                             }
@@ -147,9 +155,7 @@ public class GpsTracker extends Service implements LocationListener {
     }
 
     /**onLocationChanged
-     *
-     * 위치가 바뀔 때 새로운 위치값을 받아올 수 있도록 한다. (12/11에 추가함)
-     *
+     * 위치가 바뀔 때 새로운 위치값을 받아올 수 있도록 한다.
      */
     @Override
     public void onLocationChanged(Location location) {
