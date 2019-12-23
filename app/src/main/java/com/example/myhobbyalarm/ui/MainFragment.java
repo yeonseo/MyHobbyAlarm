@@ -1839,10 +1839,13 @@ public class MainFragment extends Fragment
                 Log.d(TAG, "onCreateView, FloatingActionButton");
                 break;
             case R.id.action_refresh:
-
                 mAdapter.setAlarms(allAlarms);
                 break;
+
             case R.id.action_color:
+                /**
+                 * 다이얼 로그창에서 선택한 컬러 타이틀에 따라 알람을 정렬함
+                 */
                 View colorView = View.inflate(getContext(), R.layout.color_dialog, null);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
                 dialog.setView(colorView);
@@ -1896,14 +1899,7 @@ public class MainFragment extends Fragment
                             selectcolor = "softRed";
                         }
                         if (selectcolor != null) {
-                            Log.d(TAG, "if(selectcolor!=null) 11111111");
                             setColorData(selectcolor);
-                        }
-                        Log.d(TAG, "다이얼로그 확인 버튼 555555555555555");
-
-                        Log.d(TAG, selectcolor);
-                        for (Alarm list : colorAlarms) {
-                            Log.d(TAG, list.toString() + "666666666666");
                         }
                     }
                 });
@@ -1915,25 +1911,15 @@ public class MainFragment extends Fragment
     }
 
     public void setColorData(String colorTitle) {
-        Log.d(TAG, "setColorData 22222222222");
         colorAlarms.removeAll(colorAlarms);
         for (Alarm alarm : allAlarms) {
-
-            Log.d(TAG, "for (Alarm alarm : allAlarms) 3333333333333");
-            Log.d(TAG, "if (alarm.getColorTitle()==colorTitle) 전 alarm.getColorTitle() = '" + alarm.getColorTitle() + "'  33333344444");
-            Log.d(TAG, "if (alarm.getColorTitle()==colorTitle) 전 colorTitle = '" + colorTitle + "'   333333333344444");
             if (alarm.getColorTitle() != null) {
                 if (alarm.getColorTitle().equals(colorTitle)) {
-
-                    Log.d(TAG, "if (alarm.getColorTitle()==ColorTitle) 44444444444444");
                     colorAlarms.add(alarm);
-
                 }
             }
-
         }
         mAdapter.setAlarms(colorAlarms);
-
     }
 
     @Override

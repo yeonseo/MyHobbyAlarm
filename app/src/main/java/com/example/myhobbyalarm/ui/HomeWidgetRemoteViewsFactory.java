@@ -34,7 +34,6 @@ class HomeWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
 
     //context 설정하기
     public Context context = null;
-    public RemoteViews views;
     public ArrayList<Alarm> alarms= new ArrayList<Alarm>();
     List<Alarm> alarmsDataList;
 
@@ -138,25 +137,34 @@ class HomeWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
         }
         return colorSet;
     }
-    //로딩 뷰를 표현하기 위해 호출, 없으면 null
+
+    /**
+     *로딩 뷰를 표현하기 위해 호출, 없으면 null
+     */
     @Override
     public RemoteViews getLoadingView() {
         return null;
     }
 
-    //항목의 타입 갯수를 판단하기 위해 호출, 모든 항목이 같은 뷰 타입이라면 1을 반환하면 된다.
+    /**
+     *항목의 타입 갯수를 판단하기 위해 호출, 모든 항목이 같은 뷰 타입이라면 1을 반환하면 된다.
+     */
     @Override
     public int getViewTypeCount() {
         return 1;
     }
 
-    //각 항목의 식별자 값을 얻기 위해 호출
+    /**
+     *각 항목의 식별자 값을 얻기 위해 호출
+     */
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
-    // 같은 ID가 항상 같은 개체를 참조하면 true 반환하는 함수
+    /**
+     *같은 ID가 항상 같은 개체를 참조하면 true 반환하는 함수
+     */
     @Override
     public boolean hasStableIds() {
         return false;
